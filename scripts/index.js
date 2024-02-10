@@ -30,6 +30,8 @@ function renderCards() {
     const cardElement = createCard(initialCards[i], deleteCard);
     placesList.appendChild(cardElement);
   }
+
+// функция добавления и снятия лайка
 }
 
 renderCards();
