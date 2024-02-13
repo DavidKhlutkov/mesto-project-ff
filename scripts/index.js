@@ -1,37 +1,58 @@
-// Функция добавления темплейта
-function createCard(data, deleteCallBack) {
-// Создание темплейта
-  const cardTemplate = document.querySelector("#card-template");
-  const cardElement = cardTemplate.content.querySelector(".places__item").cloneNode(true);
-// 
-  const cardImage = cardElement.querySelector(".card__image");
-  const cardTitle = cardElement.querySelector(".card__title");
-// Заполняем атрибуты картинки и текста данными
-  cardImage.src = data.link;
-  cardImage.alt = data.name;
-  cardTitle.textContent = data.name;
+import {
+    handleOverlayClick,
+    closePopup,
+    openPopup
+} from '../scripts/modal.js';
 
-  const deleteButton = cardElement.querySelector(".card__delete-button");
-  deleteButton.addEventListener("click", function() {
-    deleteCallBack(cardElement);
+const buttonEditProfile = document.querySelectorAll('.popup_type_edit');
+const buttonNewCard = document.querySelectorAll('.popup_type_new-card');
+const buttonTypeCard = document.querySelectorAll('.popup_type_image');
+const deleteButtons = document.querySelectorAll('.popup__close');
+
+buttonEditProfile.classList.add("popup_is-animated");
+buttonTypeCard.classList.add("popup_is-animated");
+buttonNewCard.classList.add("popup_is-animated");
+
+const cardContainer = document.querySelector(".places__list");
+const profileEditButton = document.querySelector(".profile__edit-button");
+const profileAddButton = document.querySelector(".profile__add-button");
+
+cardAddButton.addEventListener("click", () => {
+    openPopup();
   });
 
-  return cardElement;
-}
-// Функция удаления карточки
-function deleteCard(cardElement) {
-  cardElement.remove();
-}
-// Функция с циклом выведения карточек на страницу
-function renderCards() {
-  const placesList = document.querySelector(".places__list");
+profileEditButton.addEventListener("click", () => {
+    //setInitialEditProfileFormValues(); это будут значение из профиля надо реализовать
+    openPopup(popupTypeEdit);
+});
 
-  for (let i = 0; i < initialCards.length; i++) {
-    const cardElement = createCard(initialCards[i], deleteCard);
-    placesList.appendChild(cardElement);
-  }
 
-// функция добавления и снятия лайка
-}
+profileAddButton.addEventListener("click", () => {
+    openPopup(popupTypeNewCard);
+});
 
-renderCards();
+deleteButtons.forEach((button) => {
+    button.addEventListener("click", () => {
+        closePopup(button.closest(".popup"));
+    });
+});
+
+//форма редактирования профиля
+import {handleFormSubmit} from './form.js';
+
+
+//форма добавления карточки
+import {
+    handleNewCardFormSubmit,
+    newCardForm
+} from './formNewCard.js';
+
+formElement.addEventListener('submit', handleNewCardFormSubmit );
+newCardForm.addEventListener("submit", (event) =>
+  handleNewCardFormSubmit(event)
+);
+//рендеринг начального набора карточек на странице
+import {initialCards} from './cards.js';
+import {renderCards } from './card.js';
+ 
+renderCards(initialCards);
