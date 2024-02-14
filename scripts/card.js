@@ -22,9 +22,9 @@ function createCard(data, deleteCallBack) {
     return cardElement;
 }
 
+export const placesList = document.querySelector(".places__list");
 // Функция с циклом выведения карточек на страницу
 export function renderCards() {
-  const placesList = document.querySelector(".places__list");
   placesList.innerHTML = '';
   for (let i = 0; i < initialCards.length; i++) {
     const cardElement = createCard(initialCards[i], deleteCard);
@@ -33,10 +33,10 @@ export function renderCards() {
 }
 
 // Функция удаления карточки
-function deleteCard(cardElement) {
+export function deleteCard(cardElement) {
   cardElement.remove();
 }
 
-function handleLike(evt) {
+export function handleLike(evt) {
   evt.target.classList.toggle('.card__like-button_is-active');
 }
