@@ -1,6 +1,6 @@
 import { placesList } from "./constat";
 // Функция добавления темплейта
-function createCard(data, deleteCallBack) {
+export function createCard(data, deleteCallBack) {
   // Создание темплейта
     const cardTemplate = document.querySelector("#card-template");
     const cardElement = cardTemplate.content.querySelector(".places__item").cloneNode(true);

@@ -1,15 +1,16 @@
+import "./pages/index.css";
 import {
     closePopup,
     openPopup,
     handleOverlayClick
-} from '../components/modal.js';
-import {initialCards} from '../components/cards.js';
+} from './components/modal.js';
+import {initialCards} from './components/cards.js';
 import {
   createCard, 
   renderCards, 
   handleLike, 
   deleteCard, 
-  openImagePopup} from '../components/card.js';
+  openImagePopup} from './components/card.js';
 import {
   buttonEditProfile,
   buttonNewCard,
@@ -23,7 +24,7 @@ import {
   jobInput,
   userNameElement,
   userJobElement,
-} from '../components/constat.js';
+} from './components/constat.js';
 // рендеринг начального набора карточек на странице
 renderCards(initialCards);
  
