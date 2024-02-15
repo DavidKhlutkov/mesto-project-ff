@@ -1,8 +1,6 @@
+import {popupsArray} from './constat.js';
 //функции для открытия и закрытия всплывающих окон,
 //также для обработки клавиши escape и слушатель overlay click
-const popupsArray = Array.from(document.querySelectorAll('.popup'));
-
-
 function handleEscClick(evt) {
   if (evt.key === "Escape") {
     const openedPopup = popupsArray.find(popup => popup.classList.contains('.popup_is-opened'));
@@ -21,7 +19,6 @@ function handleOverlayClick(evt) {
 function openPopup(popup) {
     popup.classlist.add('.popup_is-opened');
     document.addEventListener("keydown", handleEscClick);
-    console.log(popup);
 }
 
 function closePopup(popup) {

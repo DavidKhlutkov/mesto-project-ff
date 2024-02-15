@@ -1,4 +1,4 @@
-
+import { placesList } from "./constat";
 // Функция добавления темплейта
 function createCard(data, deleteCallBack) {
   // Создание темплейта
@@ -12,17 +12,21 @@ function createCard(data, deleteCallBack) {
     cardImage.alt = data.name;
     cardTitle.textContent = data.name;
     const deleteButton = cardElement.querySelector(".card__delete-button");
+  // Слушатель удаления карточки
     deleteButton.addEventListener("click", function() {
       deleteCallBack(cardElement);
     });
-  // Ставим лайк
+  // Слушатель добавления картинки 
+  cardImage.addEventListener("click", (evt) => {
+    openImagePopup(evt);
+  })
+  // Слушатель лайка
   cardLikeButton.addEventListener("click", (evt) => {
     handleLike(evt);
   });
     return cardElement;
 }
 
-export const placesList = document.querySelector(".places__list");
 // Функция с циклом выведения карточек на страницу
 export function renderCards() {
   placesList.innerHTML = '';
@@ -39,4 +43,13 @@ export function deleteCard(cardElement) {
 
 export function handleLike(evt) {
   evt.target.classList.toggle('.card__like-button_is-active');
+}
+
+// Функция открытия попапа с картинкой
+export function openImagePopup( cardImg ) {
+  popupImage.src = cardImg.src;
+  popupImage.alt = cardImg.alt;
+  popupImageCaption = document.querySelector(".popup__caption");
+  popupImageCaption.textContent = cardImg.alt;
+  openPopup(buttonTypeCard);
 }
