@@ -6,7 +6,7 @@
         content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Mesto</title>
-  <link rel="stylesheet" href="./pages/index.css">
+  <!-- <link rel="stylesheet" href="./pages/index.css"> -->
 </head>
 <body class="page">
 <div class="page__content">
@@ -37,9 +37,22 @@
     <div class="popup__content">
       <button type="button" class="popup__close"></button>
       <h3 class="popup__title">Редактировать профиль</h3>
+      <!-- Edit Profile Form -->
       <form class="popup__form" name="edit-profile">
-        <input type="text" name="name" class="popup__input popup__input_type_name" placeholder="Имя" required>
-        <input type="text" name="description" class="popup__input popup__input_type_description" placeholder="Занятие" required>
+        <input 
+          type="text" 
+          name="name" 
+          class="popup__input popup__input_type_name" 
+          placeholder="Имя" 
+          pattern="[A-Za-zА-Яа-яЁё]{2,}" 
+          required>
+        <input 
+          type="text" 
+          name="description" 
+          class="popup__input popup__input_type_description" 
+          placeholder="Род деятельности" 
+          pattern="[A-Za-zА-Яа-яЁё\s]{2,}" 
+          required>
         <button type="submit" class="button popup__button">Сохранить</button>
       </form>
     </div>
@@ -48,9 +61,21 @@
     <div class="popup__content">
       <button type="button" class="popup__close"></button>
       <h3 class="popup__title">Новое место</h3>
+      <!-- New Place Form -->
       <form class="popup__form" name="new-place">
-        <input type="text" name="place-name" class="popup__input popup__input_type_card-name" placeholder="Название" required>
-        <input type="url" name="link" class="popup__input popup__input_type_url" placeholder="Ссылка на картинку" required>
+        <input 
+          type="text" 
+          name="place-name" 
+          class="popup__input popup__input_type_card-name" 
+          placeholder="Название" 
+          pattern="[A-Za-zА-Яа-яЁё\s]{2,}" 
+          required>
+        <input 
+          type="url" 
+          name="link" 
+          class="popup__input popup__input_type_url" 
+          placeholder="Ссылка на картинку" 
+          required>
         <button type="submit" class="button popup__button">Сохранить</button>
       </form>
     </div>
@@ -63,7 +88,7 @@
     </div>
   </div>
 </div>
-<script src="./scripts/index.js" defer></script>
+<script type="module" src="./index.js" defer></script>
 <template id="card-template">
   <li class="places__item card">
     <img class="card__image" src="" alt="" />

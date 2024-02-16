@@ -1,4 +1,6 @@
-import { placesList } from "./constat";
+import { placesList} from "./constat";
+import { openImagePopup } from "../index.js";
+import { initialCards } from "./cards.js";
 // Функция добавления темплейта
 export function createCard(data, deleteCallBack) {
   // Создание темплейта
@@ -43,13 +45,4 @@ export function deleteCard(cardElement) {
 
 export function handleLike(evt) {
   evt.target.classList.toggle('.card__like-button_is-active');
-}
-
-// Функция открытия попапа с картинкой
-export function openImagePopup( cardImg ) {
-  popupImage.src = cardImg.src;
-  popupImage.alt = cardImg.alt;
-  popupImageCaption = document.querySelector(".popup__caption");
-  popupImageCaption.textContent = cardImg.alt;
-  openPopup(buttonTypeCard);
 }

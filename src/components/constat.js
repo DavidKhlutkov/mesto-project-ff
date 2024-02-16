@@ -17,3 +17,5 @@ export const userJobElement = document.querySelector('.user__job');
 export const popupsArray = Array.from(document.querySelectorAll('.popup'));
 // Контейнер для карточек
 export const placesList = document.querySelector(".places__list");
+// Попап с картинкой
+export const popupImageCaption = document.querySelector(".popup__caption");

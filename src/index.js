@@ -9,8 +9,7 @@ import {
   createCard, 
   renderCards, 
   handleLike, 
-  deleteCard, 
-  openImagePopup} from './components/card.js';
+  deleteCard} from './components/card.js';
 import {
   buttonEditProfile,
   buttonNewCard,
@@ -23,7 +22,8 @@ import {
   placesList,
   jobInput,
   userNameElement,
-  userJobElement,
+  userJobElement, 
+  popupImageCaption
 } from './components/constat.js';
 // рендеринг начального набора карточек на странице
 renderCards(initialCards);
@@ -98,7 +98,13 @@ function handleNewCardFormSubmit(event) {
     closePopup(buttonNewCard);
   }
     
-
+// Функция открытия попапа с картинкой
+export function openImagePopup( cardImg ) {
+  popupImage.src = cardImg.src;
+  popupImage.alt = cardImg.alt;
+  popupImageCaption.textContent = cardImg.alt;
+  openPopup(buttonTypeCard);
+}
 
 profileAddButton.addEventListener("click", () => {
   openPopup(buttonNewCard);
