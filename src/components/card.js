@@ -2,7 +2,7 @@ import { placesList} from "./constat";
 import { openImagePopup } from "../index.js";
 import { initialCards } from "./cards.js";
 // Функция добавления темплейта
-export function createCard(data, deleteCallBack) {
+export function createCard(data, deleteCallBack, openImagePopup, handleLike) {
   // Создание темплейта
     const cardTemplate = document.querySelector("#card-template");
     const cardElement = cardTemplate.content.querySelector(".places__item").cloneNode(true);
