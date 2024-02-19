@@ -87,8 +87,14 @@ function handleNewCardFormSubmit(event) {
     const linkInput = event.target.querySelector('.popup__input[name="link"]');
     const placeName = placeNameInput.value;
     const link = linkInput.value;
+    // Объект с колбэками
+    const callbacksObject = {
+      deleteCardCallback: deleteCard,
+      openImageCallback: openImagePopup,
+      likeCardCallback: handleLike
+    } ;
     // Создаем новую карточку
-    const newCard = createCard( { link, name: placeName } , handleLike, deleteCard, openImagePopup );
+    const newCard = createCard({ link, name: placeName }, callbacksObject);
     // Добавляем новую карточку в начало контейнера для карточек
     placesList.prepend(newCard);
     // Очищаем форму

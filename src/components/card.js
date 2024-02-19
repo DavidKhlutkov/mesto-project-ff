@@ -15,15 +15,15 @@ export function createCard(data, deleteCallBack, openImagePopup, handleLike) {
     cardTitle.textContent = data.name;
     const deleteButton = cardElement.querySelector(".card__delete-button");
   // Слушатель удаления карточки
-    deleteButton.addEventListener("click", function() {
-      deleteCallBack(deleteButton);
-    });
+  deleteButton.addEventListener("click", () => {
+    deleteCallBack(deleteButton);
+  });
   // Слушатель добавления картинки 
-  cardImage.addEventListener("click", (evt) => {
+  cardImage.addEventListener("click", () => {
     openImagePopup(cardImage);
   })
   // Слушатель лайка
-  cardLikeButton.addEventListener("click", (evt) => {
+  cardLikeButton.addEventListener("click", () => {
     handleLike(cardLikeButton);
   });
     return cardElement;
