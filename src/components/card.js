@@ -16,15 +16,15 @@ export function createCard(data, deleteCallBack, openImagePopup, handleLike) {
     const deleteButton = cardElement.querySelector(".card__delete-button");
   // Слушатель удаления карточки
     deleteButton.addEventListener("click", function() {
-      deleteCallBack(cardElement);
+      deleteCallBack(deleteButton);
     });
   // Слушатель добавления картинки 
   cardImage.addEventListener("click", (evt) => {
-    openImagePopup(evt);
+    openImagePopup(cardImage);
   })
   // Слушатель лайка
   cardLikeButton.addEventListener("click", (evt) => {
-    handleLike(evt);
+    handleLike(cardLikeButton);
   });
     return cardElement;
 }
@@ -43,6 +43,6 @@ export function deleteCard(cardElement) {
   cardElement.remove();
 }
 
-export function handleLike(evt) {
-  evt.target.classList.toggle('.card__like-button_is-active');
+export function handleLike(cardLikeButton) {
+  cardLikeButton.classList.toggle("card__like-button_is-active");
 }
