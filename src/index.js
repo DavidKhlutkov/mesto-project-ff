@@ -27,11 +27,6 @@ import {
 } from './components/constat.js';
 // рендеринг начального набора карточек на странице
 renderCards(initialCards, callbacksObject);
- 
-//анимация всплывающих окон
-buttonEditProfile.classList.add("popup_is-animated");
-buttonTypeCard.classList.add("popup_is-animated");
-buttonNewCard.classList.add("popup_is-animated");
 
 // функция закрытия открытого попапа написать
 deleteButtons.forEach(function (button) {
@@ -42,7 +37,7 @@ deleteButtons.forEach(function (button) {
 })
 //Функция, закрывающая попап через оверлей
 buttonEditProfile.forEach(function (button) {
-  button.addEventListener("mousdown", handleOverlayClick);
+  button.addEventListener("mousedown", handleOverlayClick);
 });
 
 

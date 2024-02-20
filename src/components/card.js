@@ -3,6 +3,7 @@ import { callbacksObject } from "../index.js";
 import { initialCards } from "./cards.js";
 // Функция добавления темплейта
 export function createCard(data, callbacksObject) {
+  const { deleteCardCallback, openImageCallback, likeCardCallback } = callbacksObject;
   // Создание темплейта
     const cardTemplate = document.querySelector("#card-template");
     const cardElement = cardTemplate.content.querySelector(".places__item").cloneNode(true);
@@ -16,15 +17,15 @@ export function createCard(data, callbacksObject) {
     const deleteButton = cardElement.querySelector(".card__delete-button");
   // Слушатель удаления карточки
   deleteButton.addEventListener("click", () => {
-    callbacksObject.deleteCardCallback(deleteButton);
+    deleteCardCallback(deleteButton);
   });
   // Слушатель добавления картинки 
   cardImage.addEventListener("click", () => {
-    callbacksObject.openImageCallback(cardImage);
+    openImageCallback(cardImage);
   })
   // Слушатель лайка
   cardLikeButton.addEventListener("click", () => {
-    callbacksObject.likeCardCallback(cardLikeButton);
+    likeCardCallback(cardLikeButton);
   });
     return cardElement;
 }

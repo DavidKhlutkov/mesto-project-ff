@@ -9,7 +9,7 @@ module.exports = {
   },
   output: {
     path: path.resolve(__dirname, "dist"),
-    filename: "main.js",
+    filename: "index.js",
     publicPath: "",
   },
   mode: "development",
@@ -19,6 +19,7 @@ module.exports = {
     compress: true,
     port: 8080,
   },
+  devtool: "source-map",
   module: {
     rules: [
       {
