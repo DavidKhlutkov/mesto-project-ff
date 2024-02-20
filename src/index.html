@@ -74,7 +74,10 @@
           type="url" 
           name="link" 
           class="popup__input popup__input_type_url" 
-          placeholder="Ссылка на картинку" 
+          placeholder="Ссылка на картинку"
+          minlength="2"
+          maxlength="200"
+          pattern="^(ftp|http|https):\/\/[^ \']+"
           required>
         <button type="submit" class="button popup__button">Сохранить</button>
       </form>

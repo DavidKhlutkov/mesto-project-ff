@@ -82,22 +82,27 @@ export const callbacksObject = {
 } ; 
 
 function handleNewCardFormSubmit(event) {
-    event.preventDefault();
-    // Получаем значения полей формы
-    const placeNameInput = event.target.querySelector('.popup__input[name="place-name"]');
-    const linkInput = event.target.querySelector('.popup__input[name="link"]');
-    const placeName = placeNameInput.value;
-    const link = linkInput.value;
-    // Создаем новую карточку
-    const newCard = createCard({ link, name: placeName }, callbacksObject);
-    // Добавляем новую карточку в начало контейнера для карточек
-    placesList.prepend(newCard);
-    // Очищаем форму
+  event.preventDefault();
+  console.log(event.target);
+  // Получаем значения полей формы
+  const placeNameInput = event.target.querySelector('.popup__input[name="place-name"]');
+  const linkInput = event.target.querySelector('.popup__input[name="link"]');
+  const placeName = placeNameInput?.value || '';
+  const link = linkInput?.value || '';
+  // Создаем новую карточку
+  const newCard = createCard({ link, name: placeName }, callbacksObject);
+  // Добавляем новую карточку в начало контейнера для карточек
+  placesList.prepend(newCard);
+  // Очищаем форму
+  if (placeNameInput) {
     placeNameInput.value = '';
-    linkInput.value = '';
-    // Закрываем диалоговое окно
-    closePopup(buttonNewCard);
   }
+  if (linkInput) {
+    linkInput.value = '';
+  }
+  // Закрываем диалоговое окно
+  closePopup(buttonNewCard);
+}
 
 // Функция открытия попапа с картинкой
 export function openImagePopup( cardImg, popupImage, popupImageCaption, buttonTypeCard ) {
