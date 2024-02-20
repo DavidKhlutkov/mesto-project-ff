@@ -1,5 +1,5 @@
 import { placesList} from "./constat";
-import { openImagePopup } from "../index.js";
+import { callbacksObject } from "../index.js";
 import { initialCards } from "./cards.js";
 // Функция добавления темплейта
 export function createCard(data, deleteCallBack, openImagePopup, handleLike) {
@@ -33,7 +33,7 @@ export function createCard(data, deleteCallBack, openImagePopup, handleLike) {
 export function renderCards() {
   placesList.innerHTML = '';
   for (let i = 0; i < initialCards.length; i++) {
-    const cardElement = createCard(initialCards[i], deleteCard);
+    const cardElement = createCard(initialCards[i], callbacksObject);
     placesList.appendChild(cardElement);
   }
 }
