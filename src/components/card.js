@@ -31,10 +31,10 @@ export function createCard(data, callbacksObject) {
 }
 
 // Функция с циклом выведения карточек на страницу
-export function renderCards() {
+export function renderCards(cards, callbacksObject) {
   placesList.innerHTML = '';
-  for (let i = 0; i < initialCards.length; i++) {
-    const cardElement = createCard(initialCards[i], callbacksObject);
+  for (let i = 0; i < cards.length; i++) {
+    const cardElement = createCard(cards[i], callbacksObject);
     placesList.appendChild(cardElement);
   }
 }

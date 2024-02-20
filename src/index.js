@@ -25,8 +25,6 @@ import {
   userJobElement, 
   popupImageCaption
 } from './components/constat.js';
-// рендеринг начального набора карточек на странице
-renderCards(initialCards, callbacksObject);
 
 // функция закрытия открытого попапа написать
 deleteButtons.forEach(function (button) {
@@ -110,3 +108,7 @@ export function openImagePopup( cardImg ) {
 profileAddButton.addEventListener("click", () => {
   openPopup(buttonNewCard);
 });
+
+
+// рендеринг начального набора карточек на странице
+renderCards(initialCards, callbacksObject);
