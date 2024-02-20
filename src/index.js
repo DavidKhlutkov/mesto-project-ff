@@ -34,24 +34,26 @@ deleteButtons.forEach(function (button) {
   });
 })
 //Функция, закрывающая попап через оверлей
-buttonEditProfile.forEach(function (button) {
-  button.addEventListener("mousedown", handleOverlayClick);
-});
+buttonEditProfile.addEventListener("mousedown", handleOverlayClick);
 
 
 //форма редактирования профиля
 //Поля формы
 function setInitialEditProfileFormValues() {
-  nameInput.value = userNameElement.textContent;
-  jobInput.value = userJobElement.textContent;
+  if (userNameElement && userJobElement) {
+    nameInput.value = userNameElement.textContent;
+    jobInput.value = userJobElement.textContent;
+  }
 }
 export function handleFormSubmit(evt) {
   evt.preventDefault();
   const newName = nameInput.value;
   const newJob = jobInput.value;
 // Новые значения с помощью textContent
-  userNameElement.textContent = newName;
-  userJobElement.textContent = newJob;
+  if (userNameElement && userJobElement) {
+    userNameElement.textContent = newName;
+    userJobElement.textContent = newJob;
+  }
 // закрыть попап автоматически можно вызовом соответствующей функции
   closePopup(evt.target.closest(".popup_is-opened"));
   formElement.reset(); // очистка формы
@@ -96,9 +98,9 @@ function handleNewCardFormSubmit(event) {
     // Закрываем диалоговое окно
     closePopup(buttonNewCard);
   }
-    
+
 // Функция открытия попапа с картинкой
-export function openImagePopup( cardImg ) {
+export function openImagePopup( cardImg, popupImage, popupImageCaption, buttonTypeCard ) {
   popupImage.src = cardImg.src;
   popupImage.alt = cardImg.alt;
   popupImageCaption.textContent = cardImg.alt;

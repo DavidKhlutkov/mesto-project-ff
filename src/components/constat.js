@@ -19,3 +19,4 @@ export const popupsArray = Array.from(document.querySelectorAll('.popup'));
 export const placesList = document.querySelector(".places__list");
 // Попап с картинкой
 export const popupImageCaption = document.querySelector(".popup__caption");
+export const popupImage = document.querySelector(".popup__image");

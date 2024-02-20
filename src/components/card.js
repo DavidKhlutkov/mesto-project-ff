@@ -1,4 +1,4 @@
-import { placesList} from "./constat";
+import { placesList, popupImage, popupImageCaption, buttonTypeCard } from "./constat";
 import { callbacksObject } from "../index.js";
 import { initialCards } from "./cards.js";
 // Функция добавления темплейта
@@ -21,7 +21,7 @@ export function createCard(data, callbacksObject) {
   });
   // Слушатель добавления картинки 
   cardImage.addEventListener("click", () => {
-    openImageCallback(cardImage);
+    openImageCallback(cardImage, popupImage, popupImageCaption, buttonTypeCard);
   })
   // Слушатель лайка
   cardLikeButton.addEventListener("click", () => {
