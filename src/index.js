@@ -48,9 +48,9 @@ profileAddButton.addEventListener("click", () => {
 
 // слушатели обработчиков закрытия по оверлей и кнопке закрытия
 popupsArray.forEach((popup) => {
-  const deleteButtons = document.querySelector('.popup__close');
+  const closeButton = popup.querySelector('.popup__close');
   popup.addEventListener('click', handleOverlayClick);
-  deleteButtons.addEventListener('click', handleCloseButtonClick);
+  closeButton.addEventListener('click', handleCloseButtonClick);
 });
 
 //Поля формы
