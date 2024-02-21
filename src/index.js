@@ -15,7 +15,6 @@ import {
   buttonEditProfile,
   buttonNewCard,
   buttonTypeCard,
-  deleteButtons,
   profileEditButton,
   profileAddButton,
   formElement,
@@ -28,22 +27,32 @@ import {
   popupsArray
 } from './components/constat.js';
 
-// 
+// открыть попап с данными профиля
+profileEditButton.addEventListener("click", () => {
+  setInitialEditProfileFormValues();
+  openPopup(buttonEditProfile);
+});
+
+// Функция открытия попапа с картинкой
+export function openImagePopup( cardImg, popupImage, popupImageCaption, buttonTypeCard ) {
+  popupImage.src = cardImg.src;
+  popupImage.alt = cardImg.alt;
+  popupImageCaption.textContent = cardImg.alt;
+  openPopup(buttonTypeCard);
+}
+
+// открыть попап с формой добавления карточки
+profileAddButton.addEventListener("click", () => {
+  openPopup(buttonNewCard);
+});
+
+// слушатели обработчиков закрытия по оверлей и кнопке закрытия
 popupsArray.forEach((popup) => {
+  const deleteButtons = document.querySelector('.popup__close');
   popup.addEventListener('click', handleOverlayClick);
   deleteButtons.addEventListener('click', handleCloseButtonClick);
 });
 
-//Функция, закрывающая попап через оверлей
-// buttonEditProfile.addEventListener("mousedown", handleOverlayClick);
-const popups = document.querySelectorAll('.popup');
-popups.forEach(function(popup) {
-  popup.addEventListener("mousedown", function (evt) {
-    closePopup(popup);
-  });
-});
-
-//форма редактирования профиля
 //Поля формы
 function setInitialEditProfileFormValues() {
   if (userNameElement && userJobElement) {
@@ -51,6 +60,8 @@ function setInitialEditProfileFormValues() {
     jobInput.value = userJobElement.textContent;
   }
 }
+
+//форма редактирования профиля
 export function handleFormSubmit(evt) {
   evt.preventDefault();
   const newName = nameInput.value;
@@ -64,13 +75,6 @@ export function handleFormSubmit(evt) {
   closePopup(evt.target.closest(".popup_is-opened"));
   formElement.reset(); // очистка формы
 }
-
-// открыть попап с данными профиля
-profileEditButton.addEventListener("click", () => {
-  setInitialEditProfileFormValues();
-  openPopup(buttonEditProfile);
-});
-
 
 //форма добавления карточки
 const newCardForm = document.querySelector('.popup__form[name="new-place"]');
@@ -109,19 +113,6 @@ function handleNewCardFormSubmit(event) {
   // Закрываем диалоговое окно
   closePopup(buttonNewCard);
 }
-
-// Функция открытия попапа с картинкой
-export function openImagePopup( cardImg, popupImage, popupImageCaption, buttonTypeCard ) {
-  popupImage.src = cardImg.src;
-  popupImage.alt = cardImg.alt;
-  popupImageCaption.textContent = cardImg.alt;
-  openPopup(buttonTypeCard);
-}
-
-profileAddButton.addEventListener("click", () => {
-  openPopup(buttonNewCard);
-});
-
 
 // рендеринг начального набора карточек на странице
 renderCards(initialCards, callbacksObject);
