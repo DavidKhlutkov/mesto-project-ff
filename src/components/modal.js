@@ -16,15 +16,20 @@ function handleOverlayClick(evt) {
   }
 }
 
+function handleCloseButtonClick(evt) {
+  const button = evt.target;
+  const popup = button.closest('.popup');
+  closePopup(popup);
+}
+
 function openPopup(popup) {
-  console.log(popup);
     popup.classList.add('popup_is-opened');
     document.addEventListener("keydown", handleEscClick);
 }
 
 function closePopup(popup) {
   if (!popup) {
-    popup.classlist.remove('.popup_is-opened');
+    popup.classList.remove('popup_is-opened');
     document.removeEventListener('keydown', handleEscClick);
 }
 }
@@ -32,5 +37,6 @@ function closePopup(popup) {
 export { 
     handleOverlayClick,
     closePopup, 
-    openPopup
+    openPopup,
+    handleCloseButtonClick
 };

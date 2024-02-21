@@ -17,7 +17,7 @@ export function createCard(data, callbacksObject) {
     const deleteButton = cardElement.querySelector(".card__delete-button");
   // Слушатель удаления карточки
   deleteButton.addEventListener("click", () => {
-    deleteCardCallback(deleteButton);
+    deleteCardCallback(cardElement);
   });
   // Слушатель добавления картинки 
   cardImage.addEventListener("click", () => {

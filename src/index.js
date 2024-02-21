@@ -2,7 +2,8 @@ import "./pages/index.css";
 import {
     closePopup,
     openPopup,
-    handleOverlayClick
+    handleOverlayClick,
+    handleCloseButtonClick
 } from './components/modal.js';
 import {initialCards} from './components/cards.js';
 import {
@@ -23,19 +24,24 @@ import {
   jobInput,
   userNameElement,
   userJobElement, 
-  popupImageCaption
+  popupImageCaption,
+  popupsArray
 } from './components/constat.js';
 
-// функция закрытия открытого попапа написать
-deleteButtons.forEach(function (button) {
-  button.addEventListener("click", function (evt) {
-    evt.target.closest(".popup").classList.add("popup_is-animated");
-    evt.target.closest(".popup").classList.remove("popup_is-opened");
-  });
-})
-//Функция, закрывающая попап через оверлей
-buttonEditProfile.addEventListener("mousedown", handleOverlayClick);
+// 
+popupsArray.forEach((popup) => {
+  popup.addEventListener('click', handleOverlayClick);
+  deleteButtons.addEventListener('click', handleCloseButtonClick);
+});
 
+//Функция, закрывающая попап через оверлей
+// buttonEditProfile.addEventListener("mousedown", handleOverlayClick);
+const popups = document.querySelectorAll('.popup');
+popups.forEach(function(popup) {
+  popup.addEventListener("mousedown", function (evt) {
+    closePopup(popup);
+  });
+});
 
 //форма редактирования профиля
 //Поля формы

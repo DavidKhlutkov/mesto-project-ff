@@ -2,7 +2,7 @@
 export const buttonEditProfile = document.querySelector('.popup_type_edit');
 export const buttonNewCard = document.querySelector('.popup_type_new-card');
 export const buttonTypeCard = document.querySelector('.popup_type_image');
-export const deleteButtons = document.querySelectorAll('.popup__close');
+export const deleteButtons = document.querySelector('.popup__close');
 export const profileEditButton = document.querySelector(".profile__edit-button");
 export const profileAddButton = document.querySelector(".profile__add-button");
 // Находим форму в DOM
