@@ -3,7 +3,7 @@ import {popupsArray} from './constat.js';
 //также для обработки клавиши escape и слушатель overlay click
 function handleEscClick(evt) {
   if (evt.key === "Escape") {
-    const openedPopup = popupsArray.find(popup => popup.classList.contains('.popup_is-opened'));
+    const openedPopup = popupsArray.find(popup => popup.classList.contains('popup_is-opened'));
     if (openedPopup) {
       closePopup(openedPopup);
     }
@@ -28,10 +28,12 @@ function openPopup(popup) {
 }
 
 function closePopup(popup) {
-  if (!popup) {
-    popup.classList.remove('popup_is-opened');
-    document.removeEventListener('keydown', handleEscClick);
-}
+//   if (!popup) {
+//     popup.classList.remove('popup_is-opened');
+//     document.removeEventListener('keydown', handleEscClick);
+// }
+popup.classList.remove('popup_is-opened');
+document.removeEventListener('keydown', handleEscClick);
 }
 
 export { 
