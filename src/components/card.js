@@ -1,6 +1,4 @@
-import { placesList, popupImage, popupImageCaption, buttonTypeCard } from "./constat";
-import { callbacksObject } from "../index.js";
-import { initialCards } from "./cards.js";
+import { popupImage, popupImageCaption, buttonTypeCard } from "./constat";
 // Функция добавления темплейта
 export function createCard(data, callbacksObject) {
   const { deleteCardCallback, openImageCallback, likeCardCallback } = callbacksObject;
@@ -28,15 +26,6 @@ export function createCard(data, callbacksObject) {
     likeCardCallback(cardLikeButton);
   });
     return cardElement;
-}
-
-// Функция с циклом выведения карточек на страницу
-export function renderCards(cards, callbacksObject) {
-  placesList.innerHTML = '';
-  for (let i = 0; i < cards.length; i++) {
-    const cardElement = createCard(cards[i], callbacksObject);
-    placesList.appendChild(cardElement);
-  }
 }
 
 // Функция удаления карточки

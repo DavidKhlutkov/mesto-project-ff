@@ -7,8 +7,7 @@ import {
 } from './components/modal.js';
 import {initialCards} from './components/cards.js';
 import {
-  createCard, 
-  renderCards, 
+  createCard,  
   handleLike, 
   deleteCard} from './components/card.js';
 import {
@@ -17,14 +16,15 @@ import {
   buttonTypeCard,
   profileEditButton,
   profileAddButton,
-  formElement,
   nameInput,
   placesList,
   jobInput,
   userNameElement,
   userJobElement, 
   popupImageCaption,
-  popupsArray
+  popupsArray,
+  profileFormElement,
+  newPlaceFormElement
 } from './components/constat.js';
 
 // открыть попап с данными профиля
@@ -73,12 +73,12 @@ export function handleFormSubmit(evt) {
   }
 // закрыть попап автоматически можно вызовом соответствующей функции
   closePopup(evt.target.closest(".popup_is-opened"));
-  formElement.reset(); // очистка формы
+  profileFormElement.reset(); // очистка формы
 }
 
 //форма добавления карточки
 const newCardForm = document.querySelector('.popup__form[name="new-place"]');
-formElement.addEventListener('submit', handleNewCardFormSubmit );
+newPlaceFormElement.addEventListener('submit', handleNewCardFormSubmit );
 newCardForm.addEventListener("submit", (event) =>
   handleNewCardFormSubmit(event)
 );
@@ -104,14 +104,18 @@ function handleNewCardFormSubmit(event) {
   // Добавляем новую карточку в начало контейнера для карточек
   placesList.prepend(newCard);
   // Очищаем форму
-  if (placeNameInput) {
-    placeNameInput.value = '';
-  }
-  if (linkInput) {
-    linkInput.value = '';
-  }
+  event.target.reset();
   // Закрываем диалоговое окно
   closePopup(buttonNewCard);
+}
+
+// Функция с циклом выведения карточек на страницу
+function renderCards(cards, callbacksObject) {
+  placesList.innerHTML = '';
+  for (let i = 0; i < cards.length; i++) {
+    const cardElement = createCard(cards[i], callbacksObject);
+    placesList.appendChild(cardElement);
+  }
 }
 
 // рендеринг начального набора карточек на странице

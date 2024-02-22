@@ -5,7 +5,8 @@ export const buttonTypeCard = document.querySelector('.popup_type_image');
 export const profileEditButton = document.querySelector(".profile__edit-button");
 export const profileAddButton = document.querySelector(".profile__add-button");
 // Находим форму в DOM
-export const formElement = document.querySelector('.popup__form');
+export const profileFormElement = document.querySelector('.popup_type_edit .popup__form');
+export const newPlaceFormElement = document.querySelector('.popup_type_new-card .popup__form');
 // поля формы
 export const nameInput = document.querySelector('.popup__input_type_name');
 export const jobInput = document.querySelector('.popup__input_type_description'); 
