@@ -21,6 +21,11 @@ const checkInputValidity = (formElement, inputElement) => {
   }
 };
 // Активация кнопки
+const hasInvalidInput = (inputList) => {
+  return inputList.some((inputElement) => {
+    return !inputElement.validity.valid;
+  })
+}
 const toggleButtonState = (inputList, buttonElement) => {
   if (hasInvalidInput(inputList)) {
     buttonElement.classList.add("button_inactive");
