@@ -26,7 +26,7 @@ import {
   profileFormElement,
   newPlaceFormElement
 } from './components/constat.js';
-
+import { validation, clearValidation} from './components/validation.js';
 // открыть попап с данными профиля
 profileEditButton.addEventListener("click", () => {
   setInitialEditProfileFormValues();
@@ -52,6 +52,20 @@ popupsArray.forEach((popup) => {
   popup.addEventListener('click', handleOverlayClick);
   closeButton.addEventListener('click', handleCloseButtonClick);
 });
+
+export const validationConfig = {
+  formSelector: '.popup__form',
+  inputSelector: '.form__input',
+  submitButtonSelector: '.button',
+  inactiveButtonClass: 'button_inactive',
+  inputErrorClass: 'form__input_type_error',
+  errorClass: 'form__input-error_active'
+}; 
+
+validation(validationConfig);
+
+clearValidation(profileFormElement, validationConfig);
+clearValidation(newPlaceFormElement, validationConfig);
 
 //Поля формы
 function setInitialEditProfileFormValues() {

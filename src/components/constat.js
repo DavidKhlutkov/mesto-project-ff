@@ -9,7 +9,7 @@ export const profileFormElement = document.querySelector('.popup_type_edit .popu
 export const newPlaceFormElement = document.querySelector('.popup_type_new-card .popup__form');
 // поля формы
 export const nameInput = document.querySelector('.popup__input_type_name');
-export const jobInput = document.querySelector('.popup__input_type_description'); 
+export const jobInput = document.querySelector('.popup__input_type_description');
 // Элементы, куда должны быть вставлены значения полей
 export const userNameElement = document.querySelector('.user__name');
 export const userJobElement = document.querySelector('.user__job');
