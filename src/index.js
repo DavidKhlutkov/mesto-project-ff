@@ -27,6 +27,7 @@ import {
   newPlaceFormElement
 } from './components/constat.js';
 import { validation, clearValidation} from './components/validation.js';
+import { getCards, getUser, postCard } from './components/api.js';
 // открыть попап с данными профиля
 profileEditButton.addEventListener("click", () => {
   setInitialEditProfileFormValues();
@@ -122,6 +123,16 @@ function handleNewCardFormSubmit(event) {
   // Закрываем диалоговое окно
   closePopup(buttonNewCard);
 }
+
+// Промис получения информации о пользователе и карточках 
+Promise.all([getUser(), getCards()])
+  .then(([cards, userData]) => {
+    setUserData(userData);
+    setCards(cards);
+  })
+  .catch((err) => {
+    console.log(err);
+  });
 
 // Функция с циклом выведения карточек на страницу
 function renderCards(cards, callbacksObject) {

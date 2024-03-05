@@ -1,84 +1,73 @@
-// Токен: 32e48890-9f28-47a5-845e-3c6381af43ab
-// Идентификатор группы: wff-cohort-7
-// Создаем GET-запрос
-/*
-fetch('https://example.com/api/cards', {
-  headers: {
-    'Authorization': '32e48890-9f28-47a5-845e-3c6381af43ab'
-  }
-})
-  .then(res => res.json()) // Преобразуем ответ в JSON
-  .then(data => {
-    // Используем полученные данные для отрисовки карточек и информации о пользователе
-    renderCards(data.cards);
-    renderUserInfo(data.user);
-  })
-  .catch(error => {
-    // Обрабатываем ошибку, если запрос не удался
-    console.error('Error:', error);
-  });
+const baseUrl = "https://nomoreparties.co/v1/wff-cohort-7";
+const apiRoutes = {
+  user: "users/me",
+  cards: "cards",
+  likes: "likes",
+};
 
-function renderCards(cards) {
-  // Отрисовываем карточки на странице
-}
+const headers = {
+  Authorization: "32e48890-9f28-47a5-845e-3c6381af43ab",
+  "Content-Type": "application/json",
+};
 
-function renderUserInfo(user) {
-  // Отрисовываем информацию о пользователе на странице
-}
+const checkData = (data) => {
+  if (data.ok) {
+    return data.json();
+  } else {
+    return Promise.reject(`Error: ${data.status}`);
+  }
+};
 
-// Обработчик сабмита формы создания карточки
-document.forms.createCard.addEventListener('submit', function (event) {
-    event.preventDefault();
-  
-    const title = event.currentTarget.elements.title.value;
-    const description = event.currentTarget.elements.description.value;
-  
-    createCard({ title, description });
-  });
-  
-  function createCard(newCard) {
-    // Отправляем POST-запрос на сервер для создания новой карточки
-    fetch('https://example.com/api/cards', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': '32e48890-9f28-47a5-845e-3c6381af43ab'
-      },
-      body: JSON.stringify(newCard)
-    })
-      .then(res => res.json()) // Преобразуем ответ в JSON
-      .then(data => {
-        // Используем полученные данные для отрисовки новой карточки
-        renderNewCard(data);
-      })
-      .catch(error => {
-        // Обрабатываем ошибку, если запрос не удался
-        console.error('Error:', error);
-      });
-  }
-  
-  function renderNewCard(card) {
-    // Отрисовываем новую карточку на странице
-  }
+const getCards = () => {
+  return fetch(`${baseUrl}/${apiRoutes.cards}`, {
+    method: "GET",
+    headers,
+  }).then(checkData);
+};
 
-  function deleteCard(cardId) {
-    // Отправляем DELETE-запрос на сервер для удаления карточки
-    fetch(`https://example.com/api/cards/${cardId}`, {
-      method: 'DELETE',
-      headers: {
-        'Authorization': 'Bearer 32e48890-9f28-47a5-845e-3c6381af43ab'
-      }
-    })
-      .then(() => {
-        // Удаляем отрисованную карточку на странице
-        removeRenderedCard(cardId);
-      })
-      .catch(error => {
-        // Обрабатываем ошибку, если запрос не удался
-        console.error('Error:', error);
-      });
-  }
-  
-  function removeRenderedCard(cardId) {
-    // Удаляем отрисованную карточку на странице
-  }*/
+const getUser = () => {
+  return fetch(`${baseUrl}/${apiRoutes.user}`, {
+    method: "GET",
+    headers,
+  }).then(checkData);
+};
+
+const postCard = (data) => {
+  return fetch(`${baseUrl}/${apiRoutes.cards}`, {
+    method: "POST",
+    headers,
+    body: JSON.stringify({
+      name: data.name,
+      link: data.link,
+    }),
+  }).then(checkData);
+};
+
+const deleteCard = (cardId) => {
+  return fetch(`${baseUrl}/${apiRoutes.cards}/${cardId}`, {
+    method: "DELETE",
+    headers,
+  }).then(checkData);
+};
+
+const addLikeCard = (cardId) => {
+  return fetch(`${baseUrl}/${apiRoutes.cards}/${cardId}/${apiRoutes.likes}`, {
+    method: "PUT",
+    headers,
+  }).then(checkData);
+};
+
+const deleteLikeCard = (cardId) => {
+  return fetch(`${baseUrl}/${apiRoutes.cards}/${cardId}/${apiRoutes.likes}`, {
+    method: "DELETE",
+    headers,
+  }).then(checkData);
+};
+
+const addAvatar = (avatar) => {
+  return fetch(`${baseUrl}/${apiRoutes.user}/avatar`, {
+    method: "PATCH",
+    headers,
+    body: JSON.stringify({ avatar: avatar }),
+  }).then(checkData);
+};
