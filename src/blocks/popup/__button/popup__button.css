@@ -21,7 +21,7 @@
 
 .button_inactive {
   opacity: 0.5;
-  cursor: not-allowed;
+  pointer-events: none;
 }
 
 @media screen and (max-width: 568px) {

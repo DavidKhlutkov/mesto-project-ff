@@ -25,13 +25,6 @@ const getCards = () => {
   }).then(checkData);
 };
 
-const getUser = () => {
-  return fetch(`${baseUrl}/${apiRoutes.user}`, {
-    method: "GET",
-    headers,
-  }).then(checkData);
-};
-
 const postCard = (data) => {
   return fetch(`${baseUrl}/${apiRoutes.cards}`, {
     method: "POST",
@@ -43,12 +36,30 @@ const postCard = (data) => {
   }).then(checkData);
 };
 
-const deleteCard = (cardId) => {
+const deleteCardApi = (cardId) => {
   return fetch(`${baseUrl}/${apiRoutes.cards}/${cardId}`, {
     method: "DELETE",
     headers,
   }).then(checkData);
 };
+
+const getUser = () => {
+  return fetch(`${baseUrl}/${apiRoutes.user}`, {
+    method: "GET",
+    headers,
+  }).then(checkData);
+};
+
+const patchUser = (dataUser) => {
+  return fetch(`${baseUrl}/${apiRoutes.user}`, {
+    method: "PATCH",
+    headers,
+    body: JSON.stringify({
+      name: dataUser.name,
+      about: dataUser.about,
+    }).then(checkData)
+  });
+}
 
 const addLikeCard = (cardId) => {
   return fetch(`${baseUrl}/${apiRoutes.cards}/${cardId}/${apiRoutes.likes}`, {
@@ -64,10 +75,20 @@ const deleteLikeCard = (cardId) => {
   }).then(checkData);
 };
 
-const addAvatar = (avatar) => {
+const getAvatar = (avatar) => {
   return fetch(`${baseUrl}/${apiRoutes.user}/avatar`, {
     method: "PATCH",
     headers,
     body: JSON.stringify({ avatar: avatar }),
   }).then(checkData);
 };
+export {
+  getCards,
+  postCard,
+  deleteCardApi,
+  getUser,
+  patchUser,
+  addLikeCard,
+  deleteLikeCard,
+  getAvatar
+}

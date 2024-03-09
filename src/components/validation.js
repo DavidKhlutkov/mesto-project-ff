@@ -1,3 +1,4 @@
+import {formElement} from "./constat.js"
 // Добавление ерора
 const showInputError = (formElement, inputElement, errorMessage) => {
   const errorElement = formElement.querySelector(`#${inputElement.id}-error`);
@@ -51,7 +52,7 @@ export function clearAreaValidation(formElement,validationConfig) {
 // Включение валидации
 const setEventListeners = (formElement, validationConfig) => { 
   const { inputSelector, submitButtonSelector } = validationConfig;
-  const inputList = Array.from(formElement.querySelectorAll(inputSelector)); 
+  const inputList = Array.from(formElement.querySelectorAll(console.dir(inputSelector))); 
   const buttonElement = formElement.querySelector(submitButtonSelector);
   toggleButtonState(inputList, buttonElement);
 
@@ -63,17 +64,16 @@ const setEventListeners = (formElement, validationConfig) => {
   });
 };
 // 
-export const enableValidation = (validationConfig) => {
+
+ export const enableValidation = (validationConfig) => {
   const { inputSelector, formElement } = validationConfig;
   const formElementList = Array.from(document.querySelectorAll(formElement));
-  
   formElementList.forEach((formElement) => {
   formElement.addEventListener("submit", (event) => {
-    event.preventDefault();
+    setEventListeners(formElement, validationConfig);
   });
-
-  setEventListeners(formElement, validationConfig);
-  });
+})
+ 
 }
 
 export { enableValidation as validation, clearAreaValidation as clearValidation };

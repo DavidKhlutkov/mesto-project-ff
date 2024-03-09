@@ -12,6 +12,10 @@
   object-fit: cover;
 }
 
+.profile__image:hover {
+  cursor: pointer;
+}
+
 @media screen and (max-width: 740px) {
   .profile__image {
     margin: 0 10px 0 0;

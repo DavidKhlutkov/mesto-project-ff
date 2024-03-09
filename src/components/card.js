@@ -1,4 +1,12 @@
 import { popupImage, popupImageCaption, buttonTypeCard } from "./constat";
+import {
+  // getCards,
+  // getUser,
+  // postCard,
+  deleteCardApi,
+  // addLikeCard,
+  // deleteLikeCard
+} from "./api";
 // Функция добавления темплейта
 export function createCard(data, callbacksObject) {
   const { deleteCardCallback, openImageCallback, likeCardCallback } = callbacksObject;
