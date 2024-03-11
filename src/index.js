@@ -30,17 +30,17 @@ import {
   jobInput,
   avatarForm,
   avatarFormElement,
-  avatarImage
+  avatarButton,
+  avatarImage,
+  userId
 } from './components/constat.js';
 import { validation, clearValidation} from './components/validation.js';
-import {   getCards,
+import {
+  getCards,
   postCard,
-  // deleteCardApi,
   getUser,
   patchUser,
-  // addLikeCard,
-  // deleteLikeCard,
-  addAvatar
+  getAvatar
 } from './components/api.js';
 
 // Объект с колбэками
@@ -67,6 +67,16 @@ validation(validationConfig);
   userNameElement.textContent = dataUser.name;
   userJobElement.textContent = dataUser.about;
   avatarImage.setAttribute("style", `background-image: url('${dataUser.avatar}')`);
+  userId = dataUser._id;
+}
+
+// Функция с циклом выведения карточек на страницу
+function renderCards(cards, callbacksObject, userId) {
+  placesList.innerHTML = '';
+  for (let i = 0; i < cards.length; i++) {
+    const cardElement = createCard(cards[i], callbacksObject, userId);
+    placesList.appendChild(cardElement);
+  }
 }
 
 //Поля формы
@@ -99,7 +109,7 @@ profileAddButton.addEventListener("click", () => {
 });
 
 // открыть попап с формой добавления аватара
-avatarFormElement.addEventListener("click", () => {
+avatarButton.addEventListener("click", () => {
   openPopup(avatarForm);
 });
 
@@ -143,7 +153,7 @@ function handleNewCardFormSubmit(event) {
   const placeName = placeNameInput?.value || '';
   const link = linkInput?.value || '';
   // Создаем новую карточку
-  const newCard = createCard( data = { name: placeName, link: link } , callbacksObject);
+  const newCard = createCard( data = { name: placeName, link: link }, callbacksObject, userId);
   postCard(data = { name: placeName, link: link })
     .then(() => {
       // Добавляем новую карточку в начало контейнера для карточек
@@ -157,6 +167,7 @@ function handleNewCardFormSubmit(event) {
       console.log(err);
     })
     .finally(() => {
+      clearValidation(newCardForm, validationConfig);
       buttonNewCard.textContent = 'Сохранить';
     })
 }
@@ -165,15 +176,14 @@ function handleNewCardFormSubmit(event) {
 function handleAvatarFormSubmit(event) {
   event.preventDefault();
   buttonEditAvatar.textContent = 'Сохранение...';
-  const newAvatarUrl = avatarUrlInput.value;
-  addAvatar({ avatar: newAvatarUrl })
-    .then((data) => {
-      avatarImage.setAttribute("style", `background-image: url('${data.avatar}')`);
-      avatarUrlInput.value = '';
+  getAvatar(formAvatar.elements.link.value)
+    .then((avatar) => {
+      avatarImage.setAttribute("style", `background-image: url('${avatar}')`);
       closePopup(avatarFormElement);
+      formAvatar.reset();
     })
     .catch((err) => {
-      console.log(err);
+      console.log("Произошла ошибка при обновлении аватара:", err);
     })
     .finally(() => {
       clearValidation(avatarForm, validationConfig);
@@ -191,17 +201,9 @@ avatarForm.addEventListener("submit", (event) => {
   handleAvatarFormSubmit(event);
 });
 
-// Функция с циклом выведения карточек на страницу
-function renderCards(cards, callbacksObject) {
-  placesList.innerHTML = '';
-  for (let i = 0; i < cards.length; i++) {
-    const cardElement = createCard(cards[i], callbacksObject);
-    placesList.appendChild(cardElement);
-  }
-}
-
 // рендеринг начального набора карточек на странице
 renderCards(cards, callbacksObject);
+
 // Промис получения информации о пользователе и карточках 
 Promise.all([getUser(), getCards()])
   .then(([cards, dataUser]) => {

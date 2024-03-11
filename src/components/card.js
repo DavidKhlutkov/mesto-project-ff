@@ -1,15 +1,14 @@
-import { popupImage, popupImageCaption, buttonTypeCard } from "./constat";
+import { popupImage, popupImageCaption, buttonTypeCard, userId } from "./constat";
 import {
   addLikeCard,
   // getCards,
   // getUser,
   // postCard,
   deleteCardApi,
-  addLikeCard,
   deleteLikeCard
 } from "./api";
 // Функция добавления темплейта
-export function createCard(data, callbacksObject) {
+export function createCard(data, callbacksObject, userId) {
   const { deleteCardCallback, openImageCallback, likeCardCallback } = callbacksObject;
   // Создание темплейта
     const cardTemplate = document.querySelector("#card-template");
@@ -23,21 +22,23 @@ export function createCard(data, callbacksObject) {
     cardTitle.textContent = data.name;
     const deleteButton = cardElement.querySelector(".card__delete-button");
   // Слушатель удаления карточки если пользователь является владельцем
-  if (!data._id) {
+  if (!userId) {
     deleteButton.addEventListener("click", () => {
-      deleteCardCallback(data._id, cardElement);
+      deleteCardCallback(userId, cardElement);
     });
   } else {
     deleteButton.style.display = "none";
-  }
+  };
   // Слушатель добавления картинки 
   cardImage.addEventListener("click", () => {
     openImageCallback(cardImage, popupImage, popupImageCaption, buttonTypeCard);
-  })
-  // Слушатель лайка
-  cardLikeButton.addEventListener("click", () => {
-    likeCardCallback(cardLikeButton);
   });
+  // Слушатель лайка
+cardLikeButton.addEventListener("click", () => {
+  likeCardCallback(cardLikeButton);
+  handleLikeCounter(cardElement, userId); // Call the handleLikeCounter function passing the cardElement and data
+});
+  // Возвращаем созданный темплейт
     return cardElement;
 }
 
@@ -48,7 +49,7 @@ export function deleteCard(cardElement) {
     cardElement.remove();
   })
   .catch(error => {
-    console.error("Error deleting the card:", error);
+    console.error("Ошибка при удалении карты:", error);
   });
 }
 

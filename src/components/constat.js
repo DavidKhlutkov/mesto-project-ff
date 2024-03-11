@@ -10,12 +10,12 @@ export const buttonEditAvatar = avatarFormElement.querySelector('.popup__button'
 export const buttonTypeCard = document.querySelector('.popup_type_image');
 export const profileEditButton = document.querySelector(".profile__edit-button");
 export const profileAddButton = document.querySelector(".profile__add-button");
-// export const avatarButton = document.querySelector(".profile__avatar-button");
+export const avatarButton = document.querySelector(".profile__avatar-button");
 
 // аватар
 
 // поля формы
-// export const avatarImage = document.querySelector(".profile__image");
+export const avatarImage = document.querySelector(".profile__image");
 export const nameInput = document.querySelector('.popup__input_type_name');
 export const jobInput = document.querySelector('.popup__input_type_description');
 // Элементы, куда должны быть вставлены значения полей
@@ -25,9 +25,11 @@ export const userJobElement = document.querySelector('.user__job');
 export const popupsArray = Array.from(document.querySelectorAll('.popup'));
 export const editForm = document.querySelector('.popup_type_edit');
 export const newCardForm = document.querySelector('.popup_type_new-card');
-// export const avatarForm = document.querySelector(".popup_type_avatar");
+export const avatarForm = document.querySelector(".popup_type_avatar");
 // Контейнер для карточек
 export const placesList = document.querySelector(".places__list");
 // Попап с картинкой
 export const popupImageCaption = document.querySelector(".popup__caption");
 export const popupImage = document.querySelector(".popup__image");
+
+export let userId;
