@@ -1,11 +1,12 @@
 import { popupImage, popupImageCaption, buttonTypeCard } from "./constat";
 import {
+  addLikeCard,
   // getCards,
   // getUser,
   // postCard,
   deleteCardApi,
-  // addLikeCard,
-  // deleteLikeCard
+  addLikeCard,
+  deleteLikeCard
 } from "./api";
 // Функция добавления темплейта
 export function createCard(data, callbacksObject) {
@@ -21,10 +22,14 @@ export function createCard(data, callbacksObject) {
     cardImage.alt = data.name;
     cardTitle.textContent = data.name;
     const deleteButton = cardElement.querySelector(".card__delete-button");
-  // Слушатель удаления карточки
-  deleteButton.addEventListener("click", () => {
-    deleteCardCallback(cardElement);
-  });
+  // Слушатель удаления карточки если пользователь является владельцем
+  if (!data._id) {
+    deleteButton.addEventListener("click", () => {
+      deleteCardCallback(data._id, cardElement);
+    });
+  } else {
+    deleteButton.style.display = "none";
+  }
   // Слушатель добавления картинки 
   cardImage.addEventListener("click", () => {
     openImageCallback(cardImage, popupImage, popupImageCaption, buttonTypeCard);
@@ -38,9 +43,33 @@ export function createCard(data, callbacksObject) {
 
 // Функция удаления карточки
 export function deleteCard(cardElement) {
-  cardElement.remove();
+  deleteCardApi(cardElement.dataset.id)
+  .then(() => {
+    cardElement.remove();
+  })
+  .catch(error => {
+    console.error("Error deleting the card:", error);
+  });
 }
 
+// Функция лайка
 export function handleLike(cardLikeButton) {
   cardLikeButton.classList.toggle("card__like-button_is-active");
+}
+
+// функция счетчика лайков
+export function handleLikeCounter(cardElement, data) {
+  if (EventTarget.classList.contains("card__like-button_is-active")) {
+    addLikeCard(data._id)
+    .then(data => {
+      handleLike(cardElement.querySelector(".card__like-button"));
+      cardElement.querySelector(".card__like-counter").textContent = data.likes.length;
+    })
+  } else {
+    deleteLikeCard(data._id)
+    .then(data => {
+      handleLike(cardElement.querySelector(".card__like-button"));
+      cardElement.querySelector(".card__like-counter").textContent = data.likes.length;
+    })
+  }
 }

@@ -12,22 +12,22 @@ import {
   deleteCard,
 } from './components/card.js';
 import {
-  buttonEditProfile,
-  buttonNewCard,
-  buttonTypeCard,
-  profileEditButton,
-  profileAddButton,
-  nameInput,
-  placesList,
-  jobInput,
-  userNameElement,
-  userJobElement, 
-  popupImageCaption,
   popupsArray,
+  placesList,
   editForm,
   editFormElement,
+  buttonEditProfile,
+  profileEditButton,
+  userNameElement,
+  userJobElement,
+  popupImageCaption,
   newPlaceFormElement,
-  newCardForm,
+  newCardForm, 
+  buttonNewCard,
+  buttonTypeCard,
+  profileAddButton,
+  nameInput,
+  jobInput,
   avatarForm,
   avatarFormElement,
   avatarImage
@@ -40,7 +40,7 @@ import {   getCards,
   patchUser,
   // addLikeCard,
   // deleteLikeCard,
-  // addAvatar
+  addAvatar
 } from './components/api.js';
 
 // Объект с колбэками
@@ -72,8 +72,8 @@ validation(validationConfig);
 //Поля формы
 function setInitialEditProfileFormValues(dataUser) {
   if (dataUser) {
-    nameInput.value = dataUser.name;
-    jobInput.value = dataUser.about;
+    nameInput.value = userNameElement.textContent;
+    jobInput.value = userJobElement.textContent;
   }
 }
 
@@ -96,6 +96,11 @@ export function openImagePopup( cardImg, popupImage, popupImageCaption, buttonTy
 // открыть попап с формой добавления карточки
 profileAddButton.addEventListener("click", () => {
   openPopup(newCardForm);
+});
+
+// открыть попап с формой добавления аватара
+avatarFormElement.addEventListener("click", () => {
+  openPopup(avatarForm);
 });
 
 // слушатели обработчиков закрытия по оверлей и кнопке закрытия
@@ -157,23 +162,24 @@ function handleNewCardFormSubmit(event) {
 }
 
 // форма добавления аватара
-// function handleAvatarFormSubmit(event) {
-//   event.preventDefault();
-//   avatarForm.textContent = 'Сохранение...';
-//   const newAvatarUrl = avatarUrlInput.value;
-//   patchUser({ avatar: newAvatarUrl })
-//     .then((dataUser) => {
-//       avatarImage.src = dataUser.avatar;
-//       closePopup(avatarForm);
-//     })
-//     .catch((err) => {
-//       console.log(err);
-//     })
-//     .finally(() => {
-//       clearValidation(avatarForm, validationConfig);
-//       avatarForm.textContent = 'Сохранить';
-//     })
-// }
+function handleAvatarFormSubmit(event) {
+  event.preventDefault();
+  buttonEditAvatar.textContent = 'Сохранение...';
+  const newAvatarUrl = avatarUrlInput.value;
+  addAvatar({ avatar: newAvatarUrl })
+    .then((data) => {
+      avatarImage.setAttribute("style", `background-image: url('${data.avatar}')`);
+      avatarUrlInput.value = '';
+      closePopup(avatarFormElement);
+    })
+    .catch((err) => {
+      console.log(err);
+    })
+    .finally(() => {
+      clearValidation(avatarForm, validationConfig);
+      buttonEditAvatar.textContent = 'Сохранить';
+    })
+}
 
 
 // Слушатели форм
@@ -181,9 +187,9 @@ newPlaceFormElement.addEventListener('submit', handleNewCardFormSubmit );
 newCardForm.addEventListener("submit", (event) =>
   handleNewCardFormSubmit(event)
 );
-// avatarForm.addEventListener("submit", (event) => {
-//   handleAvatarFormSubmit(event);
-// });
+avatarForm.addEventListener("submit", (event) => {
+  handleAvatarFormSubmit(event);
+});
 
 // Функция с циклом выведения карточек на страницу
 function renderCards(cards, callbacksObject) {
@@ -195,13 +201,12 @@ function renderCards(cards, callbacksObject) {
 }
 
 // рендеринг начального набора карточек на странице
-renderCards(initialCards, callbacksObject);
-
+renderCards(cards, callbacksObject);
 // Промис получения информации о пользователе и карточках 
 Promise.all([getUser(), getCards()])
   .then(([cards, dataUser]) => {
     getUserInfo(dataUser);
-    getCards(cards);
+    renderCards(cards, callbacksObject);
   })
   .catch((err) => {
     console.log(err);
