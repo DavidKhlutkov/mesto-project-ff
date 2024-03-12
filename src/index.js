@@ -5,7 +5,7 @@ import {
     handleOverlayClick,
     handleCloseButtonClick
 } from './components/modal.js';
-import {initialCards} from './components/cards.js';
+// import {initialCards} from './components/cards.js';
 import {
   createCard,  
   handleLike, 
@@ -31,8 +31,7 @@ import {
   avatarForm,
   avatarFormElement,
   avatarButton,
-  avatarImage,
-  userId
+  avatarImage
 } from './components/constat.js';
 import { validation, clearValidation} from './components/validation.js';
 import {
@@ -42,7 +41,7 @@ import {
   patchUser,
   getAvatar
 } from './components/api.js';
-
+let userId;
 // Объект с колбэками
 export const callbacksObject = {
   deleteCardCallback: deleteCard,
@@ -63,7 +62,7 @@ const validationConfig = {
 validation(validationConfig);
 
 // информация о пользователе
- function getUserInfo (dataUser) {
+ function setUserInfo (dataUser) {
   userNameElement.textContent = dataUser.name;
   userJobElement.textContent = dataUser.about;
   avatarImage.setAttribute("style", `background-image: url('${dataUser.avatar}')`);
@@ -154,7 +153,7 @@ function handleNewCardFormSubmit(event) {
   const link = linkInput?.value || '';
   // Создаем новую карточку
   const newCard = createCard( data = { name: placeName, link: link }, callbacksObject, userId);
-  postCard(data = { name: placeName, link: link })
+  postCard({ name: placeName, link: link })
     .then(() => {
       // Добавляем новую карточку в начало контейнера для карточек
       placesList.prepend(newCard);
@@ -201,13 +200,10 @@ avatarForm.addEventListener("submit", (event) => {
   handleAvatarFormSubmit(event);
 });
 
-// рендеринг начального набора карточек на странице
-renderCards(cards, callbacksObject);
-
 // Промис получения информации о пользователе и карточках 
 Promise.all([getUser(), getCards()])
-  .then(([cards, dataUser]) => {
-    getUserInfo(dataUser);
+  .then(([dataUser, cards]) => {
+    setUserInfo(dataUser);
     renderCards(cards, callbacksObject);
   })
   .catch((err) => {

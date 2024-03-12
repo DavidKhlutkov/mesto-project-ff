@@ -19,8 +19,8 @@ export const avatarImage = document.querySelector(".profile__image");
 export const nameInput = document.querySelector('.popup__input_type_name');
 export const jobInput = document.querySelector('.popup__input_type_description');
 // Элементы, куда должны быть вставлены значения полей
-export const userNameElement = document.querySelector('.user__name');
-export const userJobElement = document.querySelector('.user__job');
+export const userNameElement = document.querySelector('.profile__title');
+export const userJobElement = document.querySelector('.profile__description');
 // попапы
 export const popupsArray = Array.from(document.querySelectorAll('.popup'));
 export const editForm = document.querySelector('.popup_type_edit');
@@ -32,4 +32,3 @@ export const placesList = document.querySelector(".places__list");
 export const popupImageCaption = document.querySelector(".popup__caption");
 export const popupImage = document.querySelector(".popup__image");
 
-export let userId;
