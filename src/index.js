@@ -94,7 +94,7 @@ profileEditButton.addEventListener("click", () => {
   openPopup(editForm);
 });
 
-// Функция открытия попапа с картинкой
+// открыть попап с картинкой
 export function openImagePopup( cardImg, popupImage, popupImageCaption, buttonTypeCard ) {
   popupImage.src = cardImg.src;
   popupImage.alt = cardImg.alt;
@@ -109,7 +109,7 @@ profileAddButton.addEventListener("click", () => {
 });
 
 // открыть попап с формой добавления аватара
-avatarButton.addEventListener("click", () => {
+avatarImage.addEventListener("click", () => {
   openPopup(avatarForm);
 });
 
