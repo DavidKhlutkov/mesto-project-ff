@@ -23,9 +23,7 @@
         <section class="profile page__section">
           <div
             class="profile__image"
-            style="
-              background-image: url(<%=require(&quot;./images/avatar.jpg&quot;)%>);
-            "
+            style="background-image: url('<%= require('./images/avatar.jpg') %>');"
           ></div>
           <div class="profile__info">
             <h1 class="profile__title">Жак-Ив Кусто</h1>
@@ -47,7 +45,7 @@
           <h3 class="popup__title">Редактировать профиль</h3>
           <!-- Edit Profile Form -->
           <form class="popup__form" name="edit-profile" novalidate>
-            <label for="name">
+            <label>
               <input
                 type="text"
                 name="name"
@@ -58,9 +56,9 @@
                 pattern="[A-Za-zА-Яа-яЁё]{2,40}"
                 required
               />
-              <span class="form__input-error"></span>
+              <span id="name-error" class="form__input-error"></span>
             </label>
-            <label for="description">
+            <label>
               <input
                 type="text"
                 name="description"
@@ -70,8 +68,8 @@
                 maxlength="200"
                 pattern="[A-Za-zА-Яа-яЁё\s]{2,200}"
                 required />
-              <span class="form__input-error"></span
-            ></label>
+              <span id="description-error" class="form__input-error"></span>
+            </label>
             <button type="submit" class="button popup__button">
               Сохранить
             </button>
@@ -84,7 +82,7 @@
           <h3 class="popup__title">Новое место</h3>
           <!-- New Place Form -->
           <form class="popup__form" name="new-place" novalidate>
-            <label for="place-name">
+            <label>
               <input
                 type="text"
                 name="place-name"
@@ -93,9 +91,9 @@
                 pattern="[A-Za-zА-Яа-яЁё\s]{2,30}"
                 required
               />
-              <span class="form__input-error"></span>
+              <span id="place-name-error" class="form__input-error"></span>
             </label>
-            <label for="link">
+            <label>
               <input
                 type="url"
                 name="link"
@@ -104,7 +102,7 @@
                 pattern="^(ftp|http|https):\/\/[^ \']+"
                 required
               />
-              <span class="form__input-error"></span>
+              <span id="link-error" class="form__input-error"></span>
             </label>
             <button type="submit" class="button popup__button">
               Сохранить
@@ -126,7 +124,7 @@
         <h3 class="popup__title">Обновить аватар</h3>
         <!-- Edit Avatar Form -->
         <form class="popup__form" name="edit-avatar" novalidate>
-          <label for="avatar-link">
+          <label>
             <input
               type="url"
               name="avatar-link"
@@ -134,7 +132,7 @@
               placeholder="Ссылка на картинку"
               pattern="^(ftp|http|https):\/\/[^ \']+"
               required />
-            <span class="form__input-error"></span>
+            <span id="avatar-link-error" class="form__input-error"></span>
           </label>
           <button type="submit" class="button popup__button">Сохранить</button>
         </form>

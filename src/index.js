@@ -141,7 +141,6 @@ export function handleFormSubmit(evt) {
   })
 }
 
-//Форма добавления карточки
 function handleNewCardFormSubmit(event) {
   event.preventDefault();
   console.log(event.target);
@@ -152,8 +151,9 @@ function handleNewCardFormSubmit(event) {
   const placeName = placeNameInput?.value || '';
   const link = linkInput?.value || '';
   // Создаем новую карточку
-  const newCard = createCard( data = { name: placeName, link: link }, callbacksObject, userId);
-  postCard({ name: placeName, link: link })
+  const data = { name: placeName, link: link };
+  const newCard = createCard(data, callbacksObject, userId);
+  postCard(data)
     .then(() => {
       // Добавляем новую карточку в начало контейнера для карточек
       placesList.prepend(newCard);
