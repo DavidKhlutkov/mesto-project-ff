@@ -13,6 +13,16 @@
   object-fit: cover;
 }
 
+.profile__image:hover {
+  cursor: pointer;
+   opacity: 0.6; /*в Figma 0,8 но мне кажется должно быть темнее */
+  -webkit-transition: 0.3s;
+  -moz-transition: 0.3s;
+  -ms-transition: 0.3s;
+  -o-transition: 0.3s;
+  transition: 0.3s;
+}
+
 .profile__image::before {
   position: absolute;
   content: '';
@@ -31,8 +41,12 @@
 }
 
 .profile__image:hover::before {
-  cursor: pointer;
   opacity: 1;
+  -webkit-transition: 0.3s;
+  -moz-transition: 0.3s;
+  -ms-transition: 0.3s;
+  -o-transition: 0.3s;
+  transition: 0.3s;
 }
 
 @media screen and (max-width: 740px) {

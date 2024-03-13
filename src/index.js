@@ -43,10 +43,10 @@ import {
 } from './components/api.js';
 let userId;
 // Объект с колбэками
-export const callbacksObject = {
+const callbacksObject = {
   deleteCardCallback: deleteCard,
   openImageCallback: openImagePopup,
-  likeCardCallback: handleLike
+  likeCardCallback: handleLike,
 } ; 
 
 // Валидация
@@ -151,9 +151,9 @@ function handleNewCardFormSubmit(event) {
   const placeName = placeNameInput?.value || '';
   const link = linkInput?.value || '';
   // Создаем новую карточку
-  const data = { name: placeName, link: link };
-  const newCard = createCard(data, callbacksObject, userId);
-  postCard(data)
+  const cards = { name: placeName, link: link };
+  const newCard = createCard(cards, callbacksObject, userId);
+  postCard(cards)
     .then(() => {
       // Добавляем новую карточку в начало контейнера для карточек
       placesList.prepend(newCard);
@@ -197,7 +197,7 @@ newCardForm.addEventListener("submit", (event) =>
   handleNewCardFormSubmit(event)
 );
 avatarForm.addEventListener("submit", (event) => {
-  handleAvatarFormSubmit(event);
+  handleAvatarFormSubmit(event, buttonEditAvatar);
 });
 
 // Промис получения информации о пользователе и карточках 
