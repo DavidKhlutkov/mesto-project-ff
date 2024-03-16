@@ -18,69 +18,73 @@ const checkData = (data) => {
   }
 };
 
+function request(endpoint, options) {
+  return fetch(`${baseUrl}/${endpoint}`, options).then(checkData);
+}
+
 const getCards = () => {
-  return fetch(`${baseUrl}/${apiRoutes.cards}`, {
+  return request(apiRoutes.cards, {
     method: "GET",
     headers,
-  }).then(checkData);
+  });
 };
 
 const postCard = (data) => {
-  return fetch(`${baseUrl}/${apiRoutes.cards}`, {
+  return request(apiRoutes.cards, {
     method: "POST",
     headers,
     body: JSON.stringify({
       name: data.name,
       link: data.link,
     }),
-  }).then(checkData);
+  });
 };
 
 const deleteCardApi = (cardId) => {
-  return fetch(`${baseUrl}/${apiRoutes.cards}/${cardId}`, {
+  return request(`${apiRoutes.cards}/${cardId}`, {
     method: "DELETE",
     headers,
-  }).then(checkData);
+  });
 };
 
 const getUser = () => {
-  return fetch(`${baseUrl}/${apiRoutes.user}`, {
+  return request(apiRoutes.user, {
     method: "GET",
     headers,
-  }).then(checkData);
+  });
 };
 
 const patchUser = (dataUser) => {
-  return fetch(`${baseUrl}/${apiRoutes.user}`, {
+  return request(apiRoutes.user, {
     method: "PATCH",
     headers,
     body: JSON.stringify({
       name: dataUser.name,
       about: dataUser.about,
-    }).then(checkData)
+    }),
   });
 }
 
-const addLikeCard = (cardId) => {
-  return fetch(`${baseUrl}/${apiRoutes.cards}/${cardId}/${apiRoutes.likes}`, {
+const addLikeCard = (id)  => {
+  return request(`${apiRoutes.cards}/${apiRoutes.likes}/${id}`, {
     method: "PUT",
-    headers,
-  }).then(checkData);
+    headers
+  });
 };
 
-const deleteLikeCard = (cardId) => {
-  return fetch(`${baseUrl}/${apiRoutes.cards}/${cardId}/${apiRoutes.likes}`, {
+const deleteLikeCard = (id) => {
+  return request(`${apiRoutes.cards}/${apiRoutes.likes}/${id}`, {
     method: "DELETE",
     headers,
-  }).then(checkData);
+  });
 };
 
 const getAvatar = (avatar) => {
-  return fetch(`${baseUrl}/${apiRoutes.user}/avatar`, {
+  return request(`${apiRoutes.user}/avatar`, {
     method: "PATCH",
     headers,
     body: JSON.stringify({ avatar: avatar }),
-  }).then(checkData);
+  });
 };
 export {
   getCards,

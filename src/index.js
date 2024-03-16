@@ -1,16 +1,12 @@
 import "./pages/index.css";
 import {
-    closePopup,
-    openPopup,
-    handleOverlayClick,
-    handleCloseButtonClick
-} from './components/modal.js';
+  closePopup,
+  openPopup,
+  handleOverlayClick,
+  handleCloseButtonClick,
+} from "./components/modal.js";
 // import {initialCards} from './components/cards.js';
-import {
-  createCard,  
-  handleLike, 
-  deleteCard,
-} from './components/card.js';
+import { createCard, handleLike, deleteCard, countLikes } from "./components/card.js";
 import {
   popupsArray,
   placesList,
@@ -22,7 +18,9 @@ import {
   userJobElement,
   popupImageCaption,
   newPlaceFormElement,
-  newCardForm, 
+  newCardForm,
+  newPlaceNameInput,
+  newLinkInput,
   buttonNewCard,
   buttonTypeCard,
   profileAddButton,
@@ -31,47 +29,51 @@ import {
   avatarForm,
   avatarFormElement,
   avatarButton,
-  avatarImage
-} from './components/constat.js';
-import { validation, clearValidation} from './components/validation.js';
+  avatarImage,
+} from "./components/constat.js";
+import { validation, clearValidation } from "./components/validation.js";
 import {
   getCards,
   postCard,
   getUser,
   patchUser,
-  getAvatar
-} from './components/api.js';
+  getAvatar,
+} from "./components/api.js";
 let userId;
 // Объект с колбэками
 const callbacksObject = {
   deleteCardCallback: deleteCard,
   openImageCallback: openImagePopup,
   likeCardCallback: handleLike,
-} ; 
+  countLikesCallback: countLikes,
+};
 
 // Валидация
 const validationConfig = {
-  formSelector: '.popup__form',
-  inputSelector: '.form__input',
-  submitButtonSelector: '.button',
-  inactiveButtonClass: 'button_inactive',
-  inputErrorClass: 'form__input_type_error',
-  errorClass: 'form__input-error_active'
+  formSelector: ".popup__form",
+  inputSelector: ".form__input",
+  submitButtonSelector: ".button",
+  inactiveButtonClass: "button_inactive",
+  inputErrorClass: "form__input_type_error",
+  errorClass: "form__input-error_active",
 };
 
 validation(validationConfig);
 
 // информация о пользователе
- function setUserInfo (dataUser) {
+function setUserInfo(dataUser) {
   userNameElement.textContent = dataUser.name;
   userJobElement.textContent = dataUser.about;
-  avatarImage.setAttribute("style", `background-image: url('${dataUser.avatar}')`);
-  userId = dataUser._id;
+  avatarImage.setAttribute(
+    "style",
+    `background-image: url('${dataUser.avatar}')`
+  );
+  userId = { id: dataUser._id };
 }
 
 // Функция с циклом выведения карточек на страницу
 function renderCards(cards, callbacksObject, userId) {
-  placesList.innerHTML = '';
+  placesList.innerHTML = "";
   for (let i = 0; i < cards.length; i++) {
     const cardElement = createCard(cards[i], callbacksObject, userId);
     placesList.appendChild(cardElement);
@@ -94,7 +96,12 @@ profileEditButton.addEventListener("click", () => {
 });
 
 // открыть попап с картинкой
-export function openImagePopup( cardImg, popupImage, popupImageCaption, buttonTypeCard ) {
+export function openImagePopup(
+  cardImg,
+  popupImage,
+  popupImageCaption,
+  buttonTypeCard
+) {
   popupImage.src = cardImg.src;
   popupImage.alt = cardImg.alt;
   popupImageCaption.textContent = cardImg.alt;
@@ -114,67 +121,55 @@ avatarImage.addEventListener("click", () => {
 
 // слушатели обработчиков закрытия по оверлей и кнопке закрытия
 popupsArray.forEach((popup) => {
-  const closeButton = popup.querySelector('.popup__close');
-  popup.addEventListener('click', handleOverlayClick);
-  closeButton.addEventListener('click', handleCloseButtonClick);
+  const closeButton = popup.querySelector(".popup__close");
+  popup.addEventListener("click", handleOverlayClick);
+  closeButton.addEventListener("click", handleCloseButtonClick);
 });
 
 //форма редактирования профиля
 export function handleFormSubmit(evt) {
   evt.preventDefault();
-  buttonEditProfile.textContent = 'Сохранение...';
+  buttonEditProfile.textContent = "Сохранение...";
   // отправка данных профиля
-  patchUser({
-    name: nameInput.value,
-    about: jobInput.value
-  }).then((dataUser) => {
-    setInitialEditProfileFormValues(dataUser);
-    closePopup(evt.target.closest(".popup_is-opened"));// закрыть попап автоматически можно вызовом соответствующей функции
-    editFormElement.reset();// очистка формы
-  })
-  .catch((err) => {
-    console.log(err);
-  })
-  .finally(() => {
-    clearValidation(editFormElement, validationConfig);
-    buttonEditProfile.textContent = 'Сохранить';
-  })
+  patchUser(nameInput.value, jobInput.value)
+    .then((dataUser) => {
+      setInitialEditProfileFormValues(dataUser);
+      closePopup(evt.target.closest(".popup_is-opened"));
+      editFormElement.reset();
+    })
+    .catch((err) => {
+      console.log("Произошла ошибка при редактировании профиля:", err);
+    })
+    .finally(() => {
+      clearValidation(editFormElement, validationConfig);
+      buttonEditProfile.textContent = "Сохранить";
+    });
 }
 
 function handleNewCardFormSubmit(event) {
   event.preventDefault();
-  console.log(event.target);
-  buttonNewCard.textContent = 'Сохранение...';
-  // Получаем значения полей формы
-  const placeNameInput = event.target.querySelector('.popup__input[name="place-name"]');
-  const linkInput = event.target.querySelector('.popup__input[name="link"]');
-  const placeName = placeNameInput?.value || '';
-  const link = linkInput?.value || '';
-  // Создаем новую карточку
-  const cards = { name: placeName, link: link };
-  const newCard = createCard(cards, callbacksObject, userId);
-  postCard(cards)
-    .then(() => {
-      // Добавляем новую карточку в начало контейнера для карточек
-      placesList.prepend(newCard);
-      // Очищаем форму
-      event.target.reset();
-      // Закрываем диалоговое окно
+  buttonNewCard.textContent = "Сохранение...";
+  // создание новой карточки 
+  postCard(newPlaceNameInput.value, newLinkInput.value)
+    .then((card) => {
+      const createNewCard = createCard(card, callbacksObject, userId);
+      placesList.prepend(createNewCard);
+      newPlaceForm.reset();
       closePopup(newCardForm);
     })
     .catch((err) => {
-      console.log(err);
+      console.log("Произошла ошибка при добавлении карточки:", err);
     })
     .finally(() => {
       clearValidation(newCardForm, validationConfig);
-      buttonNewCard.textContent = 'Сохранить';
-    })
+      buttonNewCard.textContent = "Сохранить";
+    });
 }
 
 // форма добавления аватара
 function handleAvatarFormSubmit(event) {
   event.preventDefault();
-  buttonEditAvatar.textContent = 'Сохранение...';
+  buttonEditAvatar.textContent = "Сохранение...";
   getAvatar(formAvatar.elements.link.value)
     .then((avatar) => {
       avatarImage.setAttribute("style", `background-image: url('${avatar}')`);
@@ -186,13 +181,12 @@ function handleAvatarFormSubmit(event) {
     })
     .finally(() => {
       clearValidation(avatarForm, validationConfig);
-      buttonEditAvatar.textContent = 'Сохранить';
-    })
+      buttonEditAvatar.textContent = "Сохранить";
+    });
 }
 
-
 // Слушатели форм
-newPlaceFormElement.addEventListener('submit', handleNewCardFormSubmit );
+newPlaceFormElement.addEventListener("submit", handleNewCardFormSubmit);
 newCardForm.addEventListener("submit", (event) =>
   handleNewCardFormSubmit(event)
 );
@@ -200,12 +194,12 @@ avatarForm.addEventListener("submit", (event) => {
   handleAvatarFormSubmit(event, buttonEditAvatar);
 });
 
-// Промис получения информации о пользователе и карточках 
+// Промис получения информации о пользователе и карточках
 Promise.all([getUser(), getCards()])
-  .then(([dataUser, cards]) => {
-    setUserInfo(dataUser);
+  .then(([userId, cards]) => {
+    setUserInfo(userId);
     renderCards(cards, callbacksObject);
   })
   .catch((err) => {
-    console.log(err);
+    console.log("Произошла ошибка при получении данных:", err);
   });
