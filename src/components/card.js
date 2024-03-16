@@ -82,7 +82,7 @@ export function countLikes(cardLikeCounter, cardLikeButton, cards) {
     .then((res) => {
       console.log("Response from deleteLikeCard:", res);
       cardLikeButton.classList.remove("card__like-button_is-active");
-      cardLikeCounter.innerText = res.likes.length;
+      cardLikeCounter.textContent = res.likes.length;
     })
     .catch((err) => {
       console.error("Произошла ошибка при удалении лайка:", err);
@@ -93,7 +93,7 @@ export function countLikes(cardLikeCounter, cardLikeButton, cards) {
     .then((res) => {
       console.log("Response from addLikeCard:", res);
       cardLikeButton.classList.add("card__like-button_is-active");
-      cardLikeCounter.innerText = res.likes.length;
+      cardLikeCounter.textContent = res.likes.length;
     })
     .catch((err) => {
       console.error("Произошла ошибка при добавлении лайка:", err);
