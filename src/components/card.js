@@ -14,7 +14,6 @@ export function createCard(cards, callbacksObject, userId) {
   const {
     deleteCardCallback,
     openImageCallback,
-    likeCardCallback,
     countLikesCallback,
   } = callbacksObject;
   // Создание темплейта
@@ -31,11 +30,10 @@ export function createCard(cards, callbacksObject, userId) {
   cardImage.alt = cards.name;
   cardTitle.textContent = cards.name;
   cardLikeCounter.innerText = cards.likes.length;
-  const cardId = cards.owner._id;
   const deleteButton = cardElement.querySelector(".card__delete-button");
 
   // Слушатель удаления карточки если пользователь является владельцем
-  if (userId === cardId) {
+  if (userId !== cards._id) {
     deleteButton.addEventListener("click", () => {
       deleteCardCallback(userId, cardElement);
     });
@@ -44,7 +42,6 @@ export function createCard(cards, callbacksObject, userId) {
   }
   // Слушатель лайка
   cardLikeButton.addEventListener("click", () => {
-    likeCardCallback(cardLikeButton);
     countLikesCallback(cardLikeCounter, cardLikeButton, cards);
   });
 
@@ -52,7 +49,6 @@ export function createCard(cards, callbacksObject, userId) {
   cardImage.addEventListener("click", () => {
     openImageCallback(cardImage, popupImage, popupImageCaption, buttonTypeCard);
   });
-  // Слушатель лайка
 
   // Возвращаем созданный темплейт
   return cardElement;
@@ -69,19 +65,13 @@ export function deleteCard(cardElement) {
     });
 }
 
-// Функция лайка
-export function handleLike(cardLikeButton) {
-  cardLikeButton.classList.toggle("card__like-button_is-active");
-}
-
 // Функция подсчета лайков
 export function countLikes(cardLikeCounter, cardLikeButton, cards) {
   if (cardLikeButton.classList.contains("card__like-button_is-active")) {
     // Пользователю уже понравилась карточка, поэтому выполните операцию "не нравится".
-    addLikeCard(cards._id)
+    deleteLikeCard(cards._id)
     .then((res) => {
-      console.log("Response from deleteLikeCard:", res);
-      cardLikeButton.classList.remove("card__like-button_is-active");
+      cardLikeButton.classList.toggle("card__like-button_is-active");
       cardLikeCounter.textContent = res.likes.length;
     })
     .catch((err) => {
@@ -89,10 +79,9 @@ export function countLikes(cardLikeCounter, cardLikeButton, cards) {
     });
   } else {
     // понравилась карта, поэтому выполните аналогичную операцию
-    deleteLikeCard(cards._id)
+    addLikeCard(cards._id)
     .then((res) => {
-      console.log("Response from addLikeCard:", res);
-      cardLikeButton.classList.add("card__like-button_is-active");
+      cardLikeButton.classList.toggle("card__like-button_is-active");
       cardLikeCounter.textContent = res.likes.length;
     })
     .catch((err) => {

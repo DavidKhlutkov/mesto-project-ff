@@ -49,6 +49,7 @@
               <input
                 type="text"
                 name="name"
+                id="name"
                 class="popup__input popup__input_type_name"
                 placeholder="Имя"
                 minlength="2"
@@ -56,19 +57,20 @@
                 pattern="[A-Za-zА-Яа-яЁё]{2,40}"
                 required
               />
-              <span class="form__input-error name-error"></span>
+              <span id="name-error" class="form__input-error name-error"></span>
             </label>
             <label>
               <input
                 type="text"
                 name="description"
+                id="description"
                 class="popup__input popup__input_type_description"
                 placeholder="О себе"
                 minlength="2"
                 maxlength="200"
                 pattern="[A-Za-zА-Яа-яЁё\s]{2,200}"
                 required />
-              <span class="form__input-error description-error"></span>
+              <span id="description-error" class="form__input-error description-error"></span>
             </label>
             <button type="submit" class="button popup__button">
               Сохранить
@@ -86,23 +88,25 @@
               <input
                 type="text"
                 name="place-name"
+                id="place-name"
                 class="popup__input popup__input_type_card-name"
                 placeholder="Название"
                 pattern="[A-Za-zА-Яа-яЁё\s]{2,30}"
                 required
               />
-              <span class="form__input-error place-name-error"></span>
+              <span id="place-name-error" class="form__input-error place-name-error"></span>
             </label>
             <label>
               <input
                 type="url"
                 name="link"
+                id="link"
                 class="popup__input popup__input_type_url"
                 placeholder="Ссылка на картинку"
                 pattern="^(ftp|http|https):\/\/[^ \']+"
                 required
               />
-              <span class="form__input-error link-error"></span>
+              <span id="link-error" class="form__input-error link-error"></span>
             </label>
             <button type="submit" class="button popup__button">
               Сохранить
@@ -128,11 +132,12 @@
             <input
               type="url"
               name="avatar-link"
+              id="avatar-link"
               class="popup__input popup__input_type_url"
               placeholder="Ссылка на картинку"
               pattern="/^(ftp|http|https):\/\/[^' ]+$/"
               required />
-            <span class="form__input-error avatar-link-error"></span>
+            <span id="avatar-link-error" class="form__input-error avatar-link-error"></span>
           </label>
           <button type="submit" class="button popup__button">Сохранить</button>
         </form>
