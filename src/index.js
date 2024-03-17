@@ -154,7 +154,7 @@ function handleNewCardFormSubmit(event) {
     .then((card) => {
       const createNewCard = createCard(card, callbacksObject, userId);
       placesList.prepend(createNewCard);
-      newPlaceForm.reset();
+      newPlaceFormElement.reset();
       closePopup(newCardForm);
     })
     .catch((err) => {

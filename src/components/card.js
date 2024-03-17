@@ -78,7 +78,7 @@ export function handleLike(cardLikeButton) {
 export function countLikes(cardLikeCounter, cardLikeButton, cards) {
   if (cardLikeButton.classList.contains("card__like-button_is-active")) {
     // Пользователю уже понравилась карточка, поэтому выполните операцию "не нравится".
-    deleteLikeCard(cards._id)
+    addLikeCard(cards._id)
     .then((res) => {
       console.log("Response from deleteLikeCard:", res);
       cardLikeButton.classList.remove("card__like-button_is-active");
@@ -89,7 +89,7 @@ export function countLikes(cardLikeCounter, cardLikeButton, cards) {
     });
   } else {
     // понравилась карта, поэтому выполните аналогичную операцию
-    addLikeCard(cards._id)
+    deleteLikeCard(cards._id)
     .then((res) => {
       console.log("Response from addLikeCard:", res);
       cardLikeButton.classList.add("card__like-button_is-active");
