@@ -33,12 +33,12 @@ export function createCard(cards, callbacksObject, userId) {
   const deleteButton = cardElement.querySelector(".card__delete-button");
 
   // Слушатель удаления карточки если пользователь является владельцем
-  if (userId !== cards._id) {
+  if (userId !== cards.owner._id) {
     deleteButton.addEventListener("click", () => {
-      deleteCardCallback(userId, cardElement);
+      deleteCardCallback(cards, cardElement);
     });
   } else {
-    deleteButton.style.display = "none";
+    deleteButton.remove();
   }
   // Слушатель лайка
   cardLikeButton.addEventListener("click", () => {
@@ -55,14 +55,14 @@ export function createCard(cards, callbacksObject, userId) {
 }
 
 // Функция удаления карточки
-export function deleteCard(cardElement) {
-  deleteCardApi(cardElement.cardsset.id)
+export function deleteCard(cards, cardsElement) {
+  deleteCardApi(cards)
     .then(() => {
-      cardElement.remove();
+      cardsElement.remove();
     })
-    .catch((error) => {
-      console.error("Ошибка при удалении карты:", error);
-    });
+    .catch((err) => {
+      console.error("Произошла ошибка при удалении карточки:", err);
+    })
 }
 
 // Функция подсчета лайков

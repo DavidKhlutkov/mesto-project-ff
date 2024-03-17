@@ -40,8 +40,8 @@ const postCard = (name, link) => {
   });
 };
 
-const deleteCardApi = (cardId) => {
-  return request(`${apiRoutes.cards}/${cardId}`, {
+const deleteCardApi = (id) => {
+  return request(`${apiRoutes.cards}/${id}`, {
     method: "DELETE",
     headers,
   });
