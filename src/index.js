@@ -50,7 +50,7 @@ const callbacksObject = {
 // Валидация
 const validationConfig = {
   formSelector: ".popup__form",
-  inputSelector: ".form__input",
+  inputSelector: ".popup__input",
   submitButtonSelector: ".button",
   inactiveButtonClass: "button_inactive",
   inputErrorClass: "form__input_type_error",
