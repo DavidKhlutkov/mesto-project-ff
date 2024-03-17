@@ -28,12 +28,10 @@ function openPopup(popup) {
 }
 
 function closePopup(popup) {
-//   if (!popup) {
-//     popup.classList.remove('popup_is-opened');
-//     document.removeEventListener('keydown', handleEscClick);
-// }
-popup.classList.remove('popup_is-opened');
-document.removeEventListener('keydown', handleEscClick);
+if (popup) {
+  popup.classList.remove("popup_is-opened");
+  document.removeEventListener("keydown", handleEscClick);
+}
 }
 
 export { 

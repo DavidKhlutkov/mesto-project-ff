@@ -29,13 +29,13 @@ const getCards = () => {
   });
 };
 
-const postCard = (data) => {
+const postCard = (name, link) => {
   return request(apiRoutes.cards, {
     method: "POST",
     headers,
     body: JSON.stringify({
-      name: data.name,
-      link: data.link,
+      name,
+      link,
     }),
   });
 };
@@ -54,13 +54,13 @@ const getUser = () => {
   });
 };
 
-const patchUser = (dataUser) => {
+const patchUser = (name, about) => {
   return request(apiRoutes.user, {
     method: "PATCH",
     headers,
     body: JSON.stringify({
-      name: dataUser.name,
-      about: dataUser.about,
+      name,
+      about,
     }),
   });
 }

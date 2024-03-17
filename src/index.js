@@ -68,7 +68,7 @@ function setUserInfo(dataUser) {
     "style",
     `background-image: url('${dataUser.avatar}')`
   );
-  userId = { id: dataUser._id };
+  userId = dataUser._id;
 }
 
 // Функция с циклом выведения карточек на страницу
@@ -186,7 +186,7 @@ function handleAvatarFormSubmit(event) {
 }
 
 // Слушатели форм
-newPlaceFormElement.addEventListener("submit", handleNewCardFormSubmit);
+editForm.addEventListener("submit", (evt) => handleFormSubmit(evt));
 newCardForm.addEventListener("submit", (event) =>
   handleNewCardFormSubmit(event)
 );
