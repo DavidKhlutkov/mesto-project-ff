@@ -28,7 +28,7 @@ import {
   jobInput,
   avatarForm,
   avatarFormElement,
-  avatarButton,
+  buttonEditAvatar,
   avatarImage,
 } from "./components/constat.js";
 import { validation, clearValidation } from "./components/validation.js";
@@ -170,11 +170,11 @@ function handleNewCardFormSubmit(event) {
 function handleAvatarFormSubmit(event) {
   event.preventDefault();
   buttonEditAvatar.textContent = "Сохранение...";
-  getAvatar(formAvatar.elements.link.value)
+  getAvatar(avatarFormElement.elements['avatar-link'].value)
     .then((avatar) => {
       avatarImage.setAttribute("style", `background-image: url('${avatar}')`);
       closePopup(avatarFormElement);
-      formAvatar.reset();
+      avatarFormElement.reset();
     })
     .catch((err) => {
       console.log("Произошла ошибка при обновлении аватара:", err);
@@ -187,12 +187,8 @@ function handleAvatarFormSubmit(event) {
 
 // Слушатели форм
 editForm.addEventListener("submit", (evt) => handleFormSubmit(evt));
-newCardForm.addEventListener("submit", (event) =>
-  handleNewCardFormSubmit(event)
-);
-avatarForm.addEventListener("submit", (event) => {
-  handleAvatarFormSubmit(event, buttonEditAvatar);
-});
+newCardForm.addEventListener("submit", (evt) => handleNewCardFormSubmit(evt));
+avatarForm.addEventListener("submit", (evt) => handleAvatarFormSubmit(evt));
 
 // Промис получения информации о пользователе и карточках
 Promise.all([getUser(), getCards()])

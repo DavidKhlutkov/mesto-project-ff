@@ -10,7 +10,6 @@ export const buttonEditAvatar = avatarFormElement.querySelector('.popup__button'
 export const buttonTypeCard = document.querySelector('.popup_type_image');
 export const profileEditButton = document.querySelector(".profile__edit-button");
 export const profileAddButton = document.querySelector(".profile__add-button");
-export const avatarButton = document.querySelector(".profile__avatar-button");
 
 // попапы
 export const popupsArray = Array.from(document.querySelectorAll('.popup'));
