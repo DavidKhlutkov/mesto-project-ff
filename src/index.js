@@ -6,7 +6,7 @@ import {
   handleCloseButtonClick,
 } from "./components/modal.js";
 // import {initialCards} from './components/cards.js';
-import { createCard, handleLike, deleteCard, countLikes } from "./components/card.js";
+import { createCard, deleteCard, countLikes } from "./components/card.js";
 import {
   popupsArray,
   placesList,
@@ -44,7 +44,6 @@ let userId;
 const callbacksObject = {
   deleteCardCallback: deleteCard,
   openImageCallback: openImagePopup,
-  likeCardCallback: handleLike,
   countLikesCallback: countLikes,
 };
 
