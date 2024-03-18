@@ -69,8 +69,12 @@
                 minlength="2"
                 maxlength="200"
                 pattern="[A-Za-zА-Яа-яЁё\s]{2,200}"
-                required />
-              <span id="description-error" class="form__input-error description-error"></span>
+                required
+              />
+              <span
+                id="description-error"
+                class="form__input-error description-error"
+              ></span>
             </label>
             <button type="submit" class="button popup__button">
               Сохранить
@@ -94,7 +98,10 @@
                 pattern="[A-Za-zА-Яа-яЁё\s]{2,30}"
                 required
               />
-              <span id="place-name-error" class="form__input-error place-name-error"></span>
+              <span
+                id="place-name-error"
+                class="form__input-error place-name-error"
+              ></span>
             </label>
             <label>
               <input
@@ -136,8 +143,12 @@
               class="popup__input popup__input_type_url"
               placeholder="Ссылка на картинку"
               pattern="/^(ftp|http|https):\/\/[^' ]+$/"
-              required />
-            <span id="avatar-link-error" class="form__input-error avatar-link-error"></span>
+              required
+            />
+            <span
+              id="avatar-link-error"
+              class="form__input-error avatar-link-error"
+            ></span>
           </label>
           <button type="submit" class="button popup__button">Сохранить</button>
         </form>
@@ -146,6 +157,10 @@
     <div class="popup__content"></div>
     <div class="popup popup_type_delete-card popup_is-animated">
       <button type="button" class="popup__close"></button>
+      <h3 class="popup__title">Вы уверены?</h3>
+      <form class="popup__form" name="delete-card" novalidate>
+        <button type="submit" class="button popup__button">Да</button>
+      </form>
     </div>
     <script type="module" src="./index.js" defer></script>
     <template id="card-template">

@@ -6,7 +6,7 @@ import {
   handleCloseButtonClick,
 } from "./components/modal.js";
 // import {initialCards} from './components/cards.js';
-import { createCard, deleteCard, countLikes } from "./components/card.js";
+import { createCard } from "./components/card.js";
 import {
   popupsArray,
   placesList,
@@ -30,6 +30,10 @@ import {
   avatarFormElement,
   buttonEditAvatar,
   avatarImage,
+  deletePopup,
+  deleteCardForm,
+  buttonDeleteCard,
+  closeButton
 } from "./components/constat.js";
 import { validation, clearValidation } from "./components/validation.js";
 import {
@@ -38,11 +42,14 @@ import {
   getUser,
   patchUser,
   getAvatar,
+  addLikeCard,
+  deleteLikeCard,
+  deleteCardApi
 } from "./components/api.js";
 let userId;
 // Объект с колбэками
 const callbacksObject = {
-  deleteCardCallback: deleteCard,
+  deleteCardCallback: openPopupDelete,
   openImageCallback: openImagePopup,
   countLikesCallback: countLikes,
 };
@@ -110,13 +117,25 @@ export function openImagePopup(
 
 // открыть попап с формой добавления карточки
 profileAddButton.addEventListener("click", () => {
+  clearValidation(newCardForm, validationConfig);
   openPopup(newCardForm);
 });
 
 // открыть попап с формой добавления аватара
 avatarImage.addEventListener("click", () => {
+  clearValidation(avatarForm, validationConfig);
   openPopup(avatarForm);
 });
+
+// открыть попап с удалением карточки
+export const openPopupDelete = () => {
+  openPopup(popupDelete);
+};
+
+// закрыть попап с удалением карточки
+const closePopupDelete = () => {
+  closePopup(popupDelete);
+};
 
 // слушатели обработчиков закрытия по оверлей и кнопке закрытия
 popupsArray.forEach((popup) => {
@@ -140,7 +159,6 @@ export function handleFormSubmit(evt) {
       console.log("Произошла ошибка при редактировании профиля:", err);
     })
     .finally(() => {
-      clearValidation(editFormElement, validationConfig);
       buttonEditProfile.textContent = "Сохранить";
     });
 }
@@ -160,7 +178,6 @@ function handleNewCardFormSubmit(event) {
       console.log("Произошла ошибка при добавлении карточки:", err);
     })
     .finally(() => {
-      clearValidation(newCardForm, validationConfig);
       buttonNewCard.textContent = "Сохранить";
     });
 }
@@ -169,7 +186,8 @@ function handleNewCardFormSubmit(event) {
 function handleAvatarFormSubmit(event) {
   event.preventDefault();
   buttonEditAvatar.textContent = "Сохранение...";
-  getAvatar(avatarFormElement.elements['avatar-link'].value)
+  const avatar = avatarFormElement.elements['avatar-link'].value;
+  getAvatar(avatar)
     .then((avatar) => {
       avatarImage.setAttribute("style", `background-image: url('${avatar}')`);
       closePopup(avatarFormElement);
@@ -179,15 +197,58 @@ function handleAvatarFormSubmit(event) {
       console.log("Произошла ошибка при обновлении аватара:", err);
     })
     .finally(() => {
-      clearValidation(avatarForm, validationConfig);
       buttonEditAvatar.textContent = "Сохранить";
     });
+}
+
+// Функция удаления карточки
+function deleteCard (deleteButton, id) {
+  deleteCardApi(id)
+    .then(() => {
+      deleteButton.closest(".card").remove();
+      closePopupDelete();
+    })
+    .catch((err) => {
+      console.error("Произошла ошибка при удалении карточки:", err);
+    })
+}
+// Форма удаления карточки
+export function handleCardDelete(evt, deleteButton, id) {
+  evt.preventDefault();
+  deleteCard(deleteButton, id);
+}
+
+// Функция подсчета лайков
+ function countLikes(cardLikeCounter, cardLikeButton, cards) {
+  if (cardLikeButton.classList.contains("card__like-button_is-active")) {
+    // Пользователю уже понравилась карточка, поэтому выполните операцию "не нравится".
+    deleteLikeCard(cards._id)
+    .then((res) => {
+      cardLikeButton.classList.toggle("card__like-button_is-active");
+      cardLikeCounter.textContent = res.likes.length;
+    })
+    .catch((err) => {
+      console.error("Произошла ошибка при удалении лайка:", err);
+    });
+  } else {
+    // понравилась карта, поэтому выполните аналогичную операцию
+    addLikeCard(cards._id)
+    .then((res) => {
+      cardLikeButton.classList.toggle("card__like-button_is-active");
+      cardLikeCounter.textContent = res.likes.length;
+    })
+    .catch((err) => {
+      console.error("Произошла ошибка при добавлении лайка:", err);
+    });
+  }
 }
 
 // Слушатели форм
 editForm.addEventListener("submit", (evt) => handleFormSubmit(evt));
 newCardForm.addEventListener("submit", (evt) => handleNewCardFormSubmit(evt));
 avatarForm.addEventListener("submit", (evt) => handleAvatarFormSubmit(evt));
+closeButton.addEventListener('click', closePopupDelete);
+deleteCardForm.addEventListener('submit', (evt) => handleCardDelete(evt, deleteButton, cardId));
 
 // Промис получения информации о пользователе и карточках
 Promise.all([getUser(), getCards()])
