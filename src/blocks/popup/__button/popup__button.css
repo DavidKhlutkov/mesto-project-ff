@@ -24,7 +24,7 @@
   pointer-events: none;
   background: #000;
   border: 1px solid rgba(0, 0, 0, 0.8);
-  color: rgba(0, 0, 0, 0.8);
+  color: #fff;
 }
 
 @media screen and (max-width: 568px) {

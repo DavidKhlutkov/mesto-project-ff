@@ -32,7 +32,9 @@ export function createCard(cards, callbacksObject, userId) {
     deleteButton.style.display = "none";
     } else {
     deleteButton.addEventListener("click", () => {
-      openPopupDelete(deleteCardCallback, deleteButton, cards._id);
+      const cardId = cards._id;
+      const deleteButtonUser = deleteButton;
+      deleteCardCallback();
     });
   }
   // Проверка наличия лайка пользователя в массиве likes
@@ -52,4 +54,12 @@ export function createCard(cards, callbacksObject, userId) {
 
   // Возвращаем созданный темплейт
   return cardElement;
+}
+
+// вернуть значения cardId и deleteButtonUser
+export function returnProps(cardId, deleteButtonUser) {
+  return {
+    cardId,
+    deleteButtonUser,
+  };
 }
