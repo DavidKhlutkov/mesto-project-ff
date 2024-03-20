@@ -54,7 +54,7 @@
                 placeholder="Имя"
                 minlength="2"
                 maxlength="40"
-                pattern="[A-Za-zА-Яа-яЁё]{2,40}"
+                pattern="^[А-яёA-z\s\-]+$"
                 required
               />
               <span id="name-error" class="form__input-error name-error"></span>
@@ -68,7 +68,7 @@
                 placeholder="О себе"
                 minlength="2"
                 maxlength="200"
-                pattern="[A-Za-zА-Яа-яЁё\s]{2,200}"
+                pattern="^[А-яёA-z\s\-]+$"
                 required
               />
               <span
@@ -95,7 +95,7 @@
                 id="place-name"
                 class="popup__input popup__input_type_card-name"
                 placeholder="Название"
-                pattern="[A-Za-zА-Яа-яЁё\s]{2,30}"
+                pattern="^[А-яёA-z\s\-]+$"
                 required
               />
               <span
@@ -110,7 +110,7 @@
                 id="link"
                 class="popup__input popup__input_type_url"
                 placeholder="Ссылка на картинку"
-                pattern="^(ftp|http|https):\/\/[^ \']+"
+                pattern="^(ftp|http|https):\/\/[a-zA-Z0-9_-]+\.(jpg|jpeg|png|gif|svg)$"
                 required
               />
               <span id="link-error" class="form__input-error link-error"></span>
@@ -142,7 +142,7 @@
               id="avatar-link"
               class="popup__input popup__input_type_url"
               placeholder="Ссылка на картинку"
-              pattern="/^(ftp|http|https):\/\/[^' ]+$/"
+              pattern="^(ftp|http|https):\/\/[a-zA-Z0-9_-]+\.(jpg|jpeg|png|gif|svg)$;"
               required
             />
             <span
@@ -154,13 +154,14 @@
         </form>
       </div>
     </div>
-    <div class="popup__content"></div>
     <div class="popup popup_type_delete-card popup_is-animated">
-      <button type="button" class="popup__close"></button>
-      <h3 class="popup__title">Вы уверены?</h3>
-      <form class="popup__form" name="delete-card" novalidate>
-        <button type="submit" class="button popup__button">Да</button>
-      </form>
+      <div class="popup__content popup__content_content_delete-card">
+        <button type="button" class="popup__close"></button>
+        <h3 class="popup__title">Вы уверены?</h3>
+        <form class="popup__form" name="delete-card" novalidate>
+          <button type="submit" class="button popup__button">Да</button>
+        </form>
+      </div>
     </div>
     <script type="module" src="./index.js" defer></script>
     <template id="card-template">
