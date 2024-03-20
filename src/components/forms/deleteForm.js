@@ -5,6 +5,7 @@ import { deletePopup } from "../constat";
 let selectedCard;
 
 export const openPopupDelete = (cardElement) => {
+  console.log(cardElement)
   cardElement = selectedCard;
   openPopup(deletePopup);
 };
@@ -13,12 +14,12 @@ export const closePopupDelete = () => {
   closePopup(deletePopup);
 };
 // Функция удаления карточки
-export function deleteCard(selectedCard, cardId) {
-  deleteCardApi(cardId)
+export function deleteCard(selectedCard) {
+  const deleteButtonUser = selectedCard.querySelector(".card__delete-button");
+  deleteCardApi(selectedCard)
     .then(() => {
-      selectedCard.remove();
+      deleteButtonUser.remove();
       closePopupDelete();
-      console.log( selectedCard)
     })
     .catch((err) => {
       console.error("Произошла ошибка при удалении карточки:", err);
@@ -28,5 +29,5 @@ export function deleteCard(selectedCard, cardId) {
 // Форма удаления карточки
 export function handleCardDelete(evt) {
   evt.preventDefault();
-  deleteCard(cardElement, cardId);
+  deleteCard();
 }
