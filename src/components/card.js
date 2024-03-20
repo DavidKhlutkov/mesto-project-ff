@@ -26,15 +26,13 @@ export function createCard(cards, callbacksObject, userId) {
   cardTitle.textContent = cards.name;
   cardLikeCounter.textContent = cards.likes.length;
   const deleteButton = cardElement.querySelector(".card__delete-button");
-
+  const cardId = cards._id;
   // Слушатель удаления карточки если пользователь является владельцем
   if (userId !== cards.owner._id) {
     deleteButton.style.display = "none";
     } else {
     deleteButton.addEventListener("click", () => {
-      const cardId = cards._id;
-      const deleteButtonUser = deleteButton;
-      deleteCardCallback();
+      deleteCardCallback(cardElement, deleteButton, cardId);
     });
   }
   // Проверка наличия лайка пользователя в массиве likes
@@ -54,12 +52,4 @@ export function createCard(cards, callbacksObject, userId) {
 
   // Возвращаем созданный темплейт
   return cardElement;
-}
-
-// вернуть значения cardId и deleteButtonUser
-export function returnProps(cardId, deleteButtonUser) {
-  return {
-    cardId,
-    deleteButtonUser,
-  };
 }
