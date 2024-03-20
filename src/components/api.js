@@ -79,7 +79,7 @@ const deleteLikeCard = (id) => {
   });
 };
 
-const getAvatar = (avatar) => {
+const patchAvatar = (avatar) => {
   return request(`${apiRoutes.user}/avatar`, {
     method: "PATCH",
     headers,
@@ -94,5 +94,5 @@ export {
   patchUser,
   addLikeCard,
   deleteLikeCard,
-  getAvatar
+  patchAvatar
 }

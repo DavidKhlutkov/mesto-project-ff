@@ -38,6 +38,11 @@ import {
   addLikeCard,
   deleteLikeCard,
 } from "./components/api.js";
+import { openPopupDelete, closePopupDelete, handleCardDelete } from "./components/forms/deleteForm.js";
+import { handleAvatarFormSubmit } from "./components/forms/avatarForm.js";
+import { handleNewCardFormSubmit } from "./components/forms/newCardsForm.js";
+import { handleFormSubmit, setInitialEditProfileFormValues} from "./components/forms/editForm.js";
+
 let userId;
 // Объект с колбэками
 const callbacksObject = {
@@ -65,14 +70,6 @@ function renderCards(cards, callbacksObject, userId) {
   for (let i = 0; i < cards.length; i++) {
     const cardElement = createCard(cards[i], callbacksObject, userId);
     placesList.appendChild(cardElement);
-  }
-}
-
-//Поля формы
-function setInitialEditProfileFormValues(dataUser) {
-  if (dataUser) {
-    nameInput.value = userNameElement.textContent;
-    jobInput.value = userJobElement.textContent;
   }
 }
 

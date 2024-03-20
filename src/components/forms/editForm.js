@@ -1,5 +1,4 @@
 import { patchUser } from "../../components/api.js";
-import { clearValidation } from "../../components/validation.js";
 import { closePopup } from "../../components/modal.js";
 import {
   buttonEditProfile,
