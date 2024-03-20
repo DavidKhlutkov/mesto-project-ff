@@ -29,7 +29,8 @@ import {
   avatarImage,
   deletePopup,
   deleteCardForm,
-  closeButton
+  closeButton,
+  buttonDeleteCard
 } from "./components/constat.js";
 import { validation, clearValidation, validationConfig} from "./components/validation.js";
 import {
@@ -143,7 +144,7 @@ editForm.addEventListener("submit", (evt) => handleFormSubmit(evt));
 newCardForm.addEventListener("submit", (evt) => handleNewCardFormSubmit(evt));
 avatarForm.addEventListener("submit", (evt) => handleAvatarFormSubmit(evt));
 closeButton.addEventListener('click', closePopupDelete);
-deleteCardForm.addEventListener('submit', handleCardDelete);
+buttonDeleteCard.addEventListener('submit', (evt) => handleCardDelete(evt));
 
 // Промис получения информации о пользователе и карточках
 Promise.all([getUser(), getCards()])

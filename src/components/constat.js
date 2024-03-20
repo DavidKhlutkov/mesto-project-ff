@@ -8,6 +8,7 @@ export const deleteCardForm = document.forms["delete-card"];
 export const buttonEditProfile = editFormElement.querySelector('.popup__button');
 export const buttonNewCard = newPlaceFormElement.querySelector('.popup__button');
 export const buttonEditAvatar = avatarFormElement.querySelector('.popup__button');
+export const buttonDeleteCard = deleteCardForm.querySelector('.popup__button');
 export const buttonTypeCard = document.querySelector('.popup_type_image');
 export const profileEditButton = document.querySelector(".profile__edit-button");
 export const profileAddButton = document.querySelector(".profile__add-button");
