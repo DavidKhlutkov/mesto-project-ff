@@ -38,11 +38,7 @@ import {
   addLikeCard,
   deleteLikeCard,
 } from "./components/api.js";
-import {handleAvatarFormSubmit} from "./components/forms/avatarForm.js";
-import {handleNewCardFormSubmit} from "./components/forms/newCardsForm.js";
-import {handleFormSubmit, setInitialEditProfileFormValues} from "./components/forms/editForm.js";
-import {handleCardDelete, openPopupDelete, closePopupDelete} from "./components/forms/deleteForm.js";
-
+let userId;
 // Объект с колбэками
 const callbacksObject = {
   deleteCardCallback: openPopupDelete,
@@ -51,6 +47,34 @@ const callbacksObject = {
 };
 
 validation(validationConfig);
+
+// информация о пользователе
+function setUserInfo(dataUser) {
+  userNameElement.textContent = dataUser.name;
+  userJobElement.textContent = dataUser.about;
+  avatarImage.setAttribute(
+    "style",
+    `background-image: url('${dataUser.avatar}')`
+  );
+  userId = dataUser._id;
+}
+
+// Функция с циклом выведения карточек на страницу
+function renderCards(cards, callbacksObject, userId) {
+  placesList.innerHTML = "";
+  for (let i = 0; i < cards.length; i++) {
+    const cardElement = createCard(cards[i], callbacksObject, userId);
+    placesList.appendChild(cardElement);
+  }
+}
+
+//Поля формы
+function setInitialEditProfileFormValues(dataUser) {
+  if (dataUser) {
+    nameInput.value = userNameElement.textContent;
+    jobInput.value = userJobElement.textContent;
+  }
+}
 
 // открыть попап с данными профиля
 profileEditButton.addEventListener("click", () => {
@@ -122,27 +146,8 @@ editForm.addEventListener("submit", (evt) => handleFormSubmit(evt));
 newCardForm.addEventListener("submit", (evt) => handleNewCardFormSubmit(evt));
 avatarForm.addEventListener("submit", (evt) => handleAvatarFormSubmit(evt));
 closeButton.addEventListener('click', closePopupDelete);
-deleteCardForm.addEventListener('submit', (evt) => handleCardDelete(evt));
+deleteCardForm.addEventListener('submit', (evt) => handleCardDelete(evt, deleteButton, cardId));
 
-let userId;
-// информация о пользователе
-function setUserInfo(dataUser) {
-  userNameElement.textContent = dataUser.name;
-  userJobElement.textContent = dataUser.about;
-  avatarImage.setAttribute(
-    "style",
-    `background-image: url('${dataUser.avatar}')`
-  );
-  userId = dataUser._id;
-}
-// Функция с циклом выведения карточек на страницу
-function renderCards(cards, callbacksObject, userId) {
-  placesList.innerHTML = "";
-  for (let i = 0; i < cards.length; i++) {
-    const cardElement = createCard(cards[i], callbacksObject, userId);
-    placesList.appendChild(cardElement);
-  }
-}
 // Промис получения информации о пользователе и карточках
 Promise.all([getUser(), getCards()])
     .then(([user, cards]) => {
