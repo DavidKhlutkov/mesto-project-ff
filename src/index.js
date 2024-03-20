@@ -144,7 +144,7 @@ editForm.addEventListener("submit", (evt) => handleFormSubmit(evt));
 newCardForm.addEventListener("submit", (evt) => handleNewCardFormSubmit(evt));
 avatarForm.addEventListener("submit", (evt) => handleAvatarFormSubmit(evt));
 closeButton.addEventListener('click', closePopupDelete);
-buttonDeleteCard.addEventListener('submit', (evt) => handleCardDelete(evt));
+deleteCardForm.addEventListener('submit', (evt) => handleCardDelete(evt));
 
 // Промис получения информации о пользователе и карточках
 Promise.all([getUser(), getCards()])

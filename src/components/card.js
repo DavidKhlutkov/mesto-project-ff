@@ -26,13 +26,12 @@ export function createCard(cards, callbacksObject, userId) {
   cardTitle.textContent = cards.name;
   cardLikeCounter.textContent = cards.likes.length;
   const deleteButton = cardElement.querySelector(".card__delete-button");
-  const cardId = cards._id;
   // Слушатель удаления карточки если пользователь является владельцем
   if (userId !== cards.owner._id) {
     deleteButton.style.display = "none";
     } else {
     deleteButton.addEventListener("click", () => {
-      deleteCardCallback(cardElement, cardId);
+      deleteCardCallback(cardElement);
     });
   }
   // Проверка наличия лайка пользователя в массиве likes

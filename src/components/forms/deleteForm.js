@@ -6,7 +6,6 @@ let selectedCard;
 let id;
 export const openPopupDelete = (cardElement, cardId) => {
   selectedCard = cardElement;
-  id = cardId;
   openPopup(deletePopup);
 };
 
@@ -25,7 +24,7 @@ export function deleteCard( selectedCard, id) {
       console.error("Произошла ошибка при удалении карточки:", err);
     });
 }
-debugger
+
 // Форма удаления карточки
 export function handleCardDelete(evt) {
   evt.preventDefault();
