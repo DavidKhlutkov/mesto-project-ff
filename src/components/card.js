@@ -31,7 +31,8 @@ export function createCard(cards, callbacksObject, userId) {
     deleteButton.style.display = "none";
     } else {
     deleteButton.addEventListener("click", () => {
-      deleteCardCallback(cardElement);
+      const cardId = cards._id;
+      deleteCardCallback(cardElement , cardId);
     });
   }
   // Проверка наличия лайка пользователя в массиве likes
