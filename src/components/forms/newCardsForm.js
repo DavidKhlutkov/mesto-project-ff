@@ -10,22 +10,18 @@ import {
   placesList,
 } from "../../components/constat.js";
 import { userId, callbacksObject } from "../../index.js";
+import { handleSubmit } from "../../components/utils.js";
 // Форма добавления карточки
 export function handleNewCardFormSubmit(event) {
-  event.preventDefault();
-  buttonNewCard.textContent = "Сохранение...";
-  // создание новой карточки
-  postCard(newPlaceNameInput.value, newLinkInput.value)
-    .then((card) => {
-      const createNewCard = createCard(card, callbacksObject, userId);
-      placesList.prepend(createNewCard);
-      newPlaceFormElement.reset();
-      closePopup(newCardForm);
-    })
-    .catch((err) => {
-      console.log("Произошла ошибка при добавлении карточки:", err);
-    })
-    .finally(() => {
-      buttonNewCard.textContent = "Сохранить";
-    });
+  function makeRequest() {
+    return postCard(newPlaceNameInput.value, newLinkInput.value)
+      .then((card) => {
+        const createNewCard = createCard(card, callbacksObject, userId);
+        placesList.prepend(createNewCard);
+        newPlaceFormElement.reset();
+        closePopup(newCardForm);
+      });
+  }
+
+  handleSubmit(makeRequest, event, buttonNewCard);
 }

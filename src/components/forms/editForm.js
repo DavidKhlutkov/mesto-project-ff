@@ -8,7 +8,7 @@ import {
   userJobElement,
   userNameElement,
 } from "../../components/constat.js";
-
+import { handleSubmit } from "../../components/utils.js";
 //Поля формы
 export function setInitialEditProfileFormValues(dataUser) {
   if (dataUser) {
@@ -18,20 +18,14 @@ export function setInitialEditProfileFormValues(dataUser) {
 }
 //форма редактирования профиля
 export function handleFormSubmit(evt) {
-  evt.preventDefault();
-  buttonEditProfile.textContent = "Сохранение...";
-  // отправка данных профиля
-  patchUser(nameInput.value, jobInput.value)
-    .then((dataUser) => {
-      console.log(dataUser);
-      setInitialEditProfileFormValues(dataUser);
-      closePopup(evt.target.closest(".popup_is-opened"));
-      editFormElement.reset();
-    })
-    .catch((err) => {
-      console.log("Произошла ошибка при редактировании профиля:", err);
-    })
-    .finally(() => {
-      buttonEditProfile.textContent = "Сохранить";
-    });
+  function makeRequest() {
+    return patchUser(nameInput.value, jobInput.value)
+      .then((dataUser) => {
+        setInitialEditProfileFormValues(dataUser);
+        closePopup(evt.target.closest(".popup_is-opened"));
+        editFormElement.reset();
+      });
+  }
+
+  handleSubmit(makeRequest, evt, buttonEditProfile);
 }

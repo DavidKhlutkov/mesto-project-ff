@@ -5,10 +5,8 @@ import { deletePopup } from "../constat";
 let selectedCard;
 let id;
 export const openPopupDelete = (cardElement, cardId) => {
-  console.log(cardElement, cardId);
   selectedCard = cardElement;
   id = cardId;
-  console.log(selectedCard, id);
   openPopup(deletePopup);
 };
 

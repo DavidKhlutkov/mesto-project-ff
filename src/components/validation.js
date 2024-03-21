@@ -26,7 +26,12 @@ const hideInputError = (formElement, inputElement, validationConfig) => {
 };
 
 // Проверка на валидность
-const checkInputValidity = (formElement, inputElement, validationConfig) => {
+const checkInputValidity = (formElement, inputElement, validationConfig, ) => {
+  if(inputElement.validity.patternMismatch) {
+    inputElement.setCustomValidity(inputElement.dataset.error);
+  } else {
+    inputElement.setCustomValidity("");
+  }
   if (!inputElement.validity.valid) {
     showInputError(formElement, inputElement, validationConfig);
   } else {
@@ -101,3 +106,4 @@ function clearValidation(formElement, validationConfig) {
 }
 
 export { enableValidation as validation, clearValidation };
+
