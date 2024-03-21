@@ -9,6 +9,7 @@ import {
   buttonNewCard,
   placesList,
 } from "../../components/constat.js";
+import { userId, callbacksObject } from "../../index.js";
 // Форма добавления карточки
 export function handleNewCardFormSubmit(event) {
   event.preventDefault();

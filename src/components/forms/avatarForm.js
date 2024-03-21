@@ -4,6 +4,7 @@ import {
   avatarImage,
 } from "../constat.js";
 import { patchAvatar } from "../api.js";
+import { closePopup } from "../modal.js";
 // форма добавления аватара
 export function handleAvatarFormSubmit(event) {
   event.preventDefault();
@@ -11,6 +12,7 @@ export function handleAvatarFormSubmit(event) {
   const avatar = avatarFormElement.elements["avatar-link"].value;
   patchAvatar(avatar)
     .then((avatar) => {
+      console.log(avatar);
       avatarImage.setAttribute("style", `background-image: url('${avatar}')`);
       closePopup(avatarFormElement);
       avatarFormElement.reset();

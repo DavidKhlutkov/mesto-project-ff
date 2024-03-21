@@ -44,9 +44,9 @@ import { handleAvatarFormSubmit } from "./components/forms/avatarForm.js";
 import { handleNewCardFormSubmit } from "./components/forms/newCardsForm.js";
 import { handleFormSubmit, setInitialEditProfileFormValues} from "./components/forms/editForm.js";
 
-let userId;
+export let userId = "";
 // Объект с колбэками
-const callbacksObject = {
+export const callbacksObject = {
   deleteCardCallback: openPopupDelete,
   openImageCallback: openImagePopup,
   countLikesCallback: countLikes,

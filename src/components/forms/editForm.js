@@ -23,6 +23,7 @@ export function handleFormSubmit(evt) {
   // отправка данных профиля
   patchUser(nameInput.value, jobInput.value)
     .then((dataUser) => {
+      console.log(dataUser);
       setInitialEditProfileFormValues(dataUser);
       closePopup(evt.target.closest(".popup_is-opened"));
       editFormElement.reset();
