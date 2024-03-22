@@ -11,8 +11,9 @@ export function handleAvatarFormSubmit(event) {
   function makeRequest() {
     const avatar = avatarFormElement.elements["avatar-link"].value;
     return patchAvatar(avatar)
-      .then((avatar) => {
-        avatarImage.setAttribute("style", `background-image: url('${avatar}')`);
+      .then((res) => {
+        console.dir(res.avatar);
+        avatarImage.setAttribute("style", `background-image: url('${res.avatar}')`);
         closePopup(avatarFormElement);
       });
   }
