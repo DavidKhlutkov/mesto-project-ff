@@ -18,7 +18,7 @@ export function handleSubmit(request, evt, loadingText = "Сохранение..
 
   const submitButton = evt.submitter;
   const initialText = submitButton.textContent;
-  renderLoading(true, submitButton, initialText);
+  renderLoading(true, submitButton, initialText, loadingText);
   request()
     .then(() => {
       evt.target.reset();
@@ -27,6 +27,6 @@ export function handleSubmit(request, evt, loadingText = "Сохранение..
       console.error(`Ошибка: ${err}`);
     })
     .finally(() => {
-      renderLoading(false, submitButton, initialText);
+      renderLoading(false, submitButton, initialText, loadingText);
     });
 }

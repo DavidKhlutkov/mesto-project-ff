@@ -1,11 +1,10 @@
 import {
   avatarFormElement,
-  buttonEditAvatar,
   avatarImage,
-} from "../constat.js";
+} from "../constats.js";
 import { patchAvatar } from "../api.js";
 import { closePopup } from "../modal.js";
-import { handleSubmit } from "../../components/utils.js";
+import { handleSubmit } from "./utilsForms.js";
 // форма добавления аватара
 export function handleAvatarFormSubmit(event) {
   function makeRequest() {
@@ -18,5 +17,5 @@ export function handleAvatarFormSubmit(event) {
       });
   }
 
-  handleSubmit(makeRequest, event, buttonEditAvatar);
+  handleSubmit(makeRequest, event);
 }

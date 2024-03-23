@@ -1,15 +1,10 @@
-import {
-  popupImage,
-  popupImageCaption,
-  buttonTypeCard,
-  userId,
-} from "./constat";
+export let userId = "";
 // Функция добавления темплейта
 export function createCard(cards, callbacksObject, userId) {
   const {
     deleteCardCallback,
     openImageCallback,
-    countLikesCallback,
+    handleLikesCallback,
   } = callbacksObject;
   // Создание темплейта
   const cardTemplate = document.querySelector("#card-template");
@@ -42,7 +37,7 @@ export function createCard(cards, callbacksObject, userId) {
   }
   // Слушатель лайка
   cardLikeButton.addEventListener("click", () => {
-    countLikesCallback(cardLikeCounter, cardLikeButton, cards);
+    handleLikesCallback(cardLikeCounter, cardLikeButton, cards);
   });
 
   // Слушатель добавления картинки

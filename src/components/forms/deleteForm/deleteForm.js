@@ -1,6 +1,4 @@
-import { deleteCardApi } from "../../components/api.js";
-import { closePopup, openPopup } from "../modal.js";
-import { deletePopup } from "../constat";
+import { deleteCardApi } from "../../api.js";
 
 let selectedCard;
 let id;
@@ -13,7 +11,6 @@ export const openPopupDelete = (cardElement, cardId) => {
 export const closePopupDelete = () => {
   closePopup(deletePopup);
 };
-
 // Функция удаления карточки
 export function deleteCard( selectedCard, id) {
   deleteCardApi(id)

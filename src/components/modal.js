@@ -1,4 +1,4 @@
-import {popupsArray} from './constat.js';
+import {popupsArray} from './constats.js';
 //функции для открытия и закрытия всплывающих окон,
 //также для обработки клавиши escape и слушатель overlay click
 function handleEscClick(evt) {
