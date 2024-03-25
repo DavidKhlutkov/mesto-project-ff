@@ -1,14 +1,18 @@
-import { postCard } from "../../api.js";
-import { createCard } from "../../card/card.js";
-import { closePopup } from "../../modal.js";
+import { postCard } from "../api.js";
+import { createCard } from "../card.js";
+import { closePopup } from "../modal.js";
 import {
   newCardForm,
   newPlaceNameInput,
   newLinkInput,
-} from "../../constats.js";
-import { callbacksObject } from "../../card/utilsCard.js";
-import { handleSubmit } from "../utilsForms.js";
-import { renderCard } from "../newCardForm/utilsNewCardForm.js";
+} from "../constats.js";
+import { handleSubmit } from "./utilsForms.js";
+
+// универсальная функция для добавления карточки
+function renderCard(item, method = "prepend") {
+  const cardElement = createCard(item, callbacksObject);
+  cardList[method](cardElement);
+}
 // Форма добавления карточки
 export function handleNewCardFormSubmit(event) {
   function makeRequest() {

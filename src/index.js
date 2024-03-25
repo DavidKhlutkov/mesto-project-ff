@@ -1,10 +1,10 @@
 import "./pages/index.css";
 import {
-  openPopup,
   handleOverlayClick,
-  handleCloseButtonClick,
+  openPopup,
+  handleCloseButtonClick
 } from "./components/modal.js";
-import { createCard, userId } from "./components/card/card.js";
+import { createCard, handleLikes } from "./components/card.js";
 import {
   popupsArray,
   placesList,
@@ -17,29 +17,36 @@ import {
   profileAddButton,
   avatarForm,
   avatarImage,
-  deleteCardForm
+  deleteCardForm,
 } from "./components/constats.js";
 import { validation, clearValidation, validationConfig} from "./components/validation.js";
 import {
   getCards,
   getUser,
 } from "./components/api.js";
-import { handleCardDelete } from "./components/forms/deleteForm/deleteForm.js";
+import { handleCardDelete, openPopupDelete } from "./components/forms/deleteForm.js";
 import { handleAvatarFormSubmit } from "./components/forms/avatarForm.js";
-import { handleNewCardFormSubmit } from "./components/forms/newCardForm/newCardsForm.js";
+import { handleNewCardFormSubmit } from "./components/forms/newCardsForm.js";
 import { handleFormSubmit, setInitialEditProfileFormValues} from "./components/forms/editForm.js";
 validation(validationConfig);
 
-// информация о пользователе
-function setUserInfo(dataUser) {
-  userNameElement.textContent = dataUser.name;
-  userJobElement.textContent = dataUser.about;
-  avatarImage.setAttribute(
-    "style",
-    `background-image: url('${dataUser.avatar}')`
-  );
-  userId = dataUser._id;
+function openImagePopup(
+  cardImg,
+  popupImage,
+  popupImageCaption,
+  buttonTypeCard
+) {
+  popupImage.src = cardImg.src;
+  popupImage.alt = cardImg.alt;
+  popupImageCaption.textContent = cardImg.alt;
+  openPopup(buttonTypeCard);
 }
+// Объект с колбэками
+const callbacksObject = {
+  deleteCardCallback: openPopupDelete,
+  openImageCallback: openImagePopup,
+  handleLikesCallback: handleLikes,
+};
 
 // открыть попап с данными профиля
 profileEditButton.addEventListener("click", () => {
@@ -73,6 +80,18 @@ newCardForm.addEventListener("submit", handleNewCardFormSubmit);
 avatarForm.addEventListener("submit", handleAvatarFormSubmit);
 deleteCardForm.addEventListener("submit", handleCardDelete);
 
+
+let userId = "";
+// информация о пользователе
+function setUserInfo(user) {
+  userNameElement.textContent = user.name;
+  userJobElement.textContent = user.about;
+  avatarImage.setAttribute(
+    "style",
+    `background-image: url('${user.avatar}')`
+  );
+  userId = user._id;
+}
 // Функция с циклом выведения карточек на страницу
 export function renderCards(cards, callbacksObject, userId) {
   placesList.innerHTML = "";

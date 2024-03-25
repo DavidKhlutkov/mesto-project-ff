@@ -4,10 +4,6 @@ export const newPlaceFormElement = document.forms["new-place"];
 export const avatarFormElement = document.forms["edit-avatar"];
 export const deleteCardForm = document.forms["delete-card"];
 //кнопки
-// export const buttonEditProfile = editFormElement.querySelector('.popup__button');
-// export const buttonNewCard = newPlaceFormElement.querySelector('.popup__button');
-// export const buttonEditAvatar = avatarFormElement.querySelector('.popup__button');
-// export const buttonDeleteCard = deleteCardForm.querySelector('.popup__button');
 export const buttonTypeCard = document.querySelector('.popup_type_image');
 export const profileEditButton = document.querySelector(".profile__edit-button");
 export const profileAddButton = document.querySelector(".profile__add-button");
@@ -32,5 +28,3 @@ export const newLinkInput = newPlaceFormElement.elements.link;
 // Попап с картинкой
 export const popupImageCaption = document.querySelector(".popup__caption");
 export const popupImage = document.querySelector(".popup__image");
-// Кнопка закрытия
-// export const deletePopupCloseButton = deletePopup.querySelector(".popup__close");
