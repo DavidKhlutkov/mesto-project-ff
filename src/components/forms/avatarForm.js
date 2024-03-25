@@ -13,7 +13,6 @@ export function handleAvatarFormSubmit(event) {
     return patchAvatar(avatar)
       .then((res) => {
         avatarImage.setAttribute("style", `background-image: url('${res.avatar}')`);
-        console.log("Closing popup...");
         closePopup(avatarForm);
       });
   }
