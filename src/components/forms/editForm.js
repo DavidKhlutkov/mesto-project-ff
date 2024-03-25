@@ -8,23 +8,21 @@ import {
 } from "../constats.js";
 import { handleSubmit } from "./utilsForms.js";
 //Поля формы
-export function setInitialEditProfileFormValues(dataUser) {
-  if (dataUser) {
-    const name = dataUser.name;
-    const about = dataUser.about;
-    nameInput.value = name;
-    jobInput.value = about;
-    userNameElement.textContent = name;
-    userJobElement.textContent = about;
-  }
+export function setInitialEditProfileFormValues() {
+  nameInput.value = userNameElement.textContent;
+  jobInput.value = userJobElement.textContent;
 }
 //форма редактирования профиля
 export function handleFormSubmit(evt) {
   function makeRequest() {
-    return patchUser(dataUser.name, dataUser.about)
+    const name = nameInput.value;
+    const about = jobInput.value;
+    return patchUser(name, about)
       .then((dataUser) => {
-        console.dir(dataUser, name, about);
-        setInitialEditProfileFormValues(dataUser);
+        userNameElement.textContent = dataUser.name;
+        userJobElement.textContent = dataUser.about;
+        console.dir(name, about);
+        setInitialEditProfileFormValues();
         closePopup(evt.target.closest(".popup_is-opened"));
       });
   }

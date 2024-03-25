@@ -69,7 +69,12 @@ const setEventListeners = (formElement, validationConfig) => {
   const buttonElement = formElement.querySelector(
     validationConfig.submitButtonSelector
   );
-  toggleButtonState(inputList, validationConfig, buttonElement);
+  // деактивируем кнопку при 1й загрузке сайта
+  // toggleButtonState(inputList, submitButton, settings);
+
+  // formElement.addEventListener('reset', () => {
+  //   disableButton(submitButton, settings)
+  // });
 
   inputList.forEach((inputElement) => {
     inputElement.addEventListener("input", function () {

@@ -1,4 +1,5 @@
 import {
+  avatarForm,
   avatarFormElement,
   avatarImage,
 } from "../constats.js";
@@ -11,9 +12,9 @@ export function handleAvatarFormSubmit(event) {
     const avatar = avatarFormElement.elements["avatar-link"].value;
     return patchAvatar(avatar)
       .then((res) => {
-        console.dir(res.avatar);
         avatarImage.setAttribute("style", `background-image: url('${res.avatar}')`);
-        closePopup(avatarFormElement);
+        console.log("Closing popup...");
+        closePopup(avatarForm);
       });
   }
 
