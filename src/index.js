@@ -87,7 +87,7 @@ function setUserInfo(user) {
   userId = user._id;
 }
 // Функция с циклом выведения карточек на страницу
-export function renderCards(cards, callbacksObject, userId) {
+function renderCards(cards, callbacksObject, userId) {
   placesList.innerHTML = "";
   cards.forEach(card => {
     const cardElement = createCard(card, callbacksObject, userId);

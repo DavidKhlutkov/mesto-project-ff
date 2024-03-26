@@ -5,21 +5,23 @@ import {
   newCardForm,
   newPlaceNameInput,
   newLinkInput,
+  placesList,
 } from "../constats.js";
 import { handleSubmit } from "./utilsForms.js";
 
-// универсальная функция для добавления карточки
+/*todo: универсальная функция, которая принимает функцию запроса, объект события и текст во время загрузки
 function renderCard(item, method = "prepend") {
   const cardElement = createCard(item, callbacks);
   cardList[method](cardElement);
-}
+} */
 // Форма добавления карточки
 export function handleNewCardFormSubmit(event, callbacksObject, userId) {
   function makeRequest() {
     return postCard(newPlaceNameInput.value, newLinkInput.value)
       .then((card) => {
         const createNewCard = createCard(card, callbacksObject, userId);
-        renderCard(createNewCard, "prepend");
+        placesList.prepend(createNewCard);
+        // renderCard(createNewCard, "prepend");
         closePopup(newCardForm);
       });
   }
